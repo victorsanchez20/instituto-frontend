@@ -1,0 +1,73 @@
+<!-- BARRA SUPERIOR -->
+<div class="top-bar" style="margin-left: 240px;">
+  <button
+    class="tab"
+    [class.active]="vista === 'crear'"
+    (click)="vista = 'crear'"
+  >
+    Crear profesor
+  </button>
+
+  <button
+    class="tab"
+    [class.active]="vista === 'ver'"
+    (click)="vista = 'ver'"
+  >
+    Ver profesores
+  </button>
+</div>
+
+<!-- CREAR PROFESOR -->
+<div *ngIf="vista === 'crear'" class="card" style="margin-left: 240px;">
+  <h2>Crear Profesor</h2>
+
+  <form (ngSubmit)="crearProfesor()">
+    <label>
+      Nombre
+      <input type="text" [(ngModel)]="profesor.nombre" name="nombre" required>
+    </label>
+
+    <label>
+      Apellido
+      <input type="text" [(ngModel)]="profesor.apellido" name="apellido" required>
+    </label>
+
+    <label>
+      Especialidad
+      <input type="text" [(ngModel)]="profesor.especialidad" name="especialidad">
+    </label>
+
+    <button type="submit" class="btn-primary">
+      Guardar profesor
+    </button>
+  </form>
+</div>
+
+<!-- LISTAR PROFESORES -->
+<div *ngIf="vista === 'ver'" class="card" style="margin-left: 240px;">
+  <h2>Listado de Profesores</h2>
+
+  <input
+    type="text"
+    class="search"
+    placeholder="Buscar profesor..."
+    [(ngModel)]="busqueda"
+  >
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Especialidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of profesoresFiltrados()">
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.apellido }}</td>
+        <td>{{ p.especialidad }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

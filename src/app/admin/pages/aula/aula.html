@@ -1,0 +1,75 @@
+<!-- BARRA SUPERIOR -->
+<div class="top-bar" style="margin-left: 240px;">
+  <button
+    class="tab"
+    [class.active]="vista === 'crear'"
+    (click)="vista = 'crear'"
+  >
+    Crear aula
+  </button>
+
+  <button
+    class="tab"
+    [class.active]="vista === 'ver'"
+    (click)="vista = 'ver'"
+  >
+    Ver aulas
+  </button>
+</div>
+
+<!-- CONTENIDO -->
+
+<!-- CREAR AULA -->
+<div *ngIf="vista === 'crear'" class="card" style="margin-left: 240px;">
+  <h2>Crear Aula</h2>
+
+  <form (ngSubmit)="crearAula()">
+    <label>
+      Nombre del aula
+      <input type="text" [(ngModel)]="aula.nombre" name="nombre" required>
+    </label>
+
+    <label>
+      Capacidad
+      <input type="number" [(ngModel)]="aula.capacidad" name="capacidad" required>
+    </label>
+
+    <label>
+      Ubicación
+      <input type="text" [(ngModel)]="aula.ubicacion" name="ubicacion">
+    </label>
+
+    <button type="submit" class="btn-primary">
+      Guardar aula
+    </button>
+  </form>
+</div>
+
+<!-- VER AULAS -->
+<div *ngIf="vista === 'ver'" class="card" style="margin-left: 240px;">
+  <h2>Listado de Aulas</h2>
+
+  <input
+    type="text"
+    class="search"
+    placeholder="Buscar aula..."
+    [(ngModel)]="busqueda"
+  >
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Capacidad</th>
+        <th>Ubicación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of aulasFiltradas()">
+        <td>{{ a.nombre }}</td>
+        <td>{{ a.capacidad }}</td>
+        <td>{{ a.ubicacion }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

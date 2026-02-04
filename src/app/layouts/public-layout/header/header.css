@@ -1,0 +1,104 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* HEADER */
+.header {
+  width: 100%;
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+  padding: 15px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* NAV */
+.nav {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.logo h1 {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* MENU */
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #e0e7ff;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.menu li a:hover {
+  color: #ffffff;
+}
+
+/* AUTH BUTTONS */
+.auth {
+  display: flex;
+  gap: 15px;
+}
+
+.auth a {
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* LOGIN */
+.btn-login {
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.btn-login:hover {
+  background-color: #fff;
+  color: #1e40af;
+}
+
+/* SIGNUP */
+.btn-signup {
+  background-color: #22c55e;
+  color: #fff;
+}
+
+.btn-signup:hover {
+  background-color: #16a34a;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+}

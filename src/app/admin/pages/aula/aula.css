@@ -1,0 +1,67 @@
+.top-bar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.tab {
+  padding: 14px 28px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  background: #e0e0e0;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #1976d2;
+  color: white;
+}
+
+.card {
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 18px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+form input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.btn-primary {
+  margin-top: 15px;
+  padding: 14px;
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  background: #1976d2;
+  color: white;
+}
+
+.search {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+th, td {
+  padding: 14px;
+  border-bottom: 1px solid #ddd;
+}
