@@ -15,7 +15,13 @@ export class Profesor {
   profesor = {
     nombre: '',
     apellido: '',
-    especialidad: ''
+    docidentidad: '',
+    telefono: '',
+    fotoUrl: '',
+    especialidad: '',
+    correo: '',
+    usuario: '',
+    password: ''
   };
 
   profesores: any[] = [];
@@ -27,7 +33,13 @@ export class Profesor {
     this.profesor = {
       nombre: '',
       apellido: '',
-      especialidad: ''
+      docidentidad: '',
+      telefono: '',
+      fotoUrl: '',
+      especialidad: '',
+      correo: '',
+      usuario: '',
+      password: ''
     };
 
     this.vista = 'ver';

@@ -1,73 +1,130 @@
-<!-- BARRA SUPERIOR -->
-<div class="top-bar" style="margin-left: 240px;">
-  <button
-    class="tab"
-    [class.active]="vista === 'crear'"
-    (click)="vista = 'crear'"
-  >
-    Crear profesor
-  </button>
+<div class="page-content">
 
-  <button
-    class="tab"
-    [class.active]="vista === 'ver'"
-    (click)="vista = 'ver'"
-  >
-    Ver profesores
-  </button>
-</div>
-
-<!-- CREAR PROFESOR -->
-<div *ngIf="vista === 'crear'" class="card" style="margin-left: 240px;">
-  <h2>Crear Profesor</h2>
-
-  <form (ngSubmit)="crearProfesor()">
-    <label>
-      Nombre
-      <input type="text" [(ngModel)]="profesor.nombre" name="nombre" required>
-    </label>
-
-    <label>
-      Apellido
-      <input type="text" [(ngModel)]="profesor.apellido" name="apellido" required>
-    </label>
-
-    <label>
-      Especialidad
-      <input type="text" [(ngModel)]="profesor.especialidad" name="especialidad">
-    </label>
-
-    <button type="submit" class="btn-primary">
-      Guardar profesor
+  <div class="tabs-wrapper">
+    <button class="tab-item" [class.active]="vista === 'crear'" (click)="vista = 'crear'">
+      <i class="fas fa-user-plus"></i>
+      <span>Nuevo Registro</span>
     </button>
-  </form>
-</div>
+    <button class="tab-item" [class.active]="vista === 'ver'" (click)="vista = 'ver'">
+      <i class="fas fa-list-ul"></i>
+      <span>Listado Docente</span>
+    </button>
+  </div>
 
-<!-- LISTAR PROFESORES -->
-<div *ngIf="vista === 'ver'" class="card" style="margin-left: 240px;">
-  <h2>Listado de Profesores</h2>
+  <div *ngIf="vista === 'crear'" class="admin-card animate-fade-in">
+    <div class="card-header">
+      <h2>Registrar Nuevo Profesor</h2>
+      <p>Complete los datos. La foto se almacenará de forma segura en nuestro servidor.</p>
+    </div>
+    
+    <form (ngSubmit)="crearProfesor()" class="form-grid">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" [(ngModel)]="profesor.nombre" name="nombre" required>
+      </div>
 
-  <input
-    type="text"
-    class="search"
-    placeholder="Buscar profesor..."
-    [(ngModel)]="busqueda"
-  >
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" [(ngModel)]="profesor.apellido" name="apellido" required>
+      </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Especialidad</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of profesoresFiltrados()">
-        <td>{{ p.nombre }}</td>
-        <td>{{ p.apellido }}</td>
-        <td>{{ p.especialidad }}</td>
-      </tr>
-    </tbody>
-  </table>
+      <div class="form-group">
+        <label for="doc">Documento de identidad</label>
+        <input type="text" id="doc" [(ngModel)]="profesor.docidentidad" name="docidentidad" required>
+      </div>
+
+      <div class="form-group">
+        <label for="tel">Número de Celular</label>
+        <input type="tel" id="tel" [(ngModel)]="profesor.telefono" name="telefono" required>
+      </div>
+
+      <div class="form-group">
+        <label for="esp">Especialidad</label>
+        <input type="text" id="esp" [(ngModel)]="profesor.especialidad" name="especialidad">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo Electrónico</label>
+        <input type="email" id="email" [(ngModel)]="profesor.correo" name="correo">
+      </div>
+
+      <div class="form-group">
+        <label for="user">Usuario de Sistema</label>
+        <input type="text" id="user" [(ngModel)]="profesor.usuario" name="usuario">
+      </div>
+
+      <div class="form-group">
+        <label for="pass">Contraseña</label>
+        <input type="password" id="pass" [(ngModel)]="profesor.password" name="password">
+      </div>
+
+      <div class="form-group full-width">
+        <label>Foto de Perfil</label>
+        <div class="upload-container">
+          <label for="foto-input" class="upload-box">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <div class="upload-text">
+              <strong>Haz clic para subir</strong> o arrastra la imagen aquí
+              <span>JPG, PNG o WEBP (Máx. 2MB)</span>
+            </div>
+            <input type="file" id="foto-input"  accept="image/*" hidden>
+          </label>
+          <div class="preview-info">
+            <i class="fas fa-file-image"></i> 
+          </div>
+        </div>
+      </div>
+
+      <div class="full-width action-container">
+        <button type="submit" class="btn-submit">
+          <i class="fas fa-save"></i> 
+          <span>Guardar y Registrar Profesor</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="vista === 'ver'" class="admin-card animate-fade-in">
+    <div class="header-table">
+      <div>
+        <h2>Listado de Profesores</h2>
+        <p>Gestión y búsqueda de personal docente activo.</p>
+      </div>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Buscar por nombre o área..." [(ngModel)]="busqueda">
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th>Nombre y Apellido</th>
+            <th>Especialidad</th>
+            <th>Contacto</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of profesoresFiltrados()">
+            <td>
+              <div class="user-info">
+                <div class="user-avatar">{{ p.nombre[0] }}{{ p.apellido[0] }}</div>
+                <span>{{ p.nombre }} {{ p.apellido }}</span>
+              </div>
+            </td>
+            <td><span class="badge-pill">{{ p.especialidad }}</span></td>
+            <td><span class="text-muted">{{ p.correo }}</span></td>
+            <td><span class="status-dot">Activo</span></td>
+            <td>
+              <button class="btn-icon"><i class="fas fa-edit"></i></button>
+              <button class="btn-icon delete"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
