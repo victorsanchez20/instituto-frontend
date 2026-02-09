@@ -1,0 +1,172 @@
+:root {
+  --uci-blue-deep: #002b52;    /* Azul muy oscuro para textos sobre fondos claros */
+  --uci-blue-main: #003a70;    /* Azul institucional */
+  --uci-gold: #c5a059;         /* Dorado para resaltar */
+  --uci-gold-light: #e0c58e;   /* Dorado claro para hover */
+  --white-pure: #ffffff;
+  --bg-light: #f4f7fa;         /* Fondo grisáceo azulado muy suave */
+  --text-muted: #64748b;
+}
+.courses-container {
+  background: #f8fafc;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Hero Section Refinada */
+.section-hero {
+  height: 400px;
+  background: radial-gradient(circle at top right, #004d96, #001e3c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  color: white;
+}
+
+.hero-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #c5a059, #f9e3b4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.eyebrow {
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Grid & Cards */
+.content-wrapper {
+  max-width: 1400px;
+  margin: -80px auto 0;
+  padding: 0 2rem 5rem;
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2.5rem;
+}
+
+.modern-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.03);
+  box-shadow: 0 10px 30px rgba(0, 58, 112, 0.05);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modern-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 30px 60px rgba(0, 58, 112, 0.12);
+}
+
+/* Image & Tags */
+.card-image {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.modern-card:hover .card-image img { transform: scale(1.1); }
+
+.tag {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: var(--glass);
+  backdrop-filter: blur(5px);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary-deep);
+}
+
+/* Body */
+.card-body { padding: 2rem; }
+
+.category {
+  color: var(--accent-gold);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.card-body h3 {
+  font-size: 1.5rem;
+  color: var(--primary-deep);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.card-body p {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Icon Perks */
+.perks {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.perks span {
+  width: 40px; height: 40px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  color: var(--primary-deep);
+  transition: 0.3s;
+}
+
+.modern-card:hover .perks span { background: var(--primary-deep); color: white; }
+
+/* Action Footer */
+.card-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1.5rem;
+}
+
+.price-tag small { display: block; font-size: 0.65rem; color: #94a3b8; text-transform: uppercase; }
+.price-tag .amount { font-size: 1.3rem; font-weight: 800; color: var(--primary-deep); }
+
+.btn-primary-glow {
+  background: var(--primary-deep);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 58, 112, 0.2);
+}
+
+.btn-primary-glow:hover { background: var(--accent-gold); }

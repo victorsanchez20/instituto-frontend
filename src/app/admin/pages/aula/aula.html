@@ -1,75 +1,103 @@
-<!-- BARRA SUPERIOR -->
-<div class="top-bar" style="margin-left: 240px;">
-  <button
-    class="tab"
-    [class.active]="vista === 'crear'"
-    (click)="vista = 'crear'"
-  >
-    Crear aula
-  </button>
+<div class="page-content">
 
-  <button
-    class="tab"
-    [class.active]="vista === 'ver'"
-    (click)="vista = 'ver'"
-  >
-    Ver aulas
-  </button>
-</div>
-
-<!-- CONTENIDO -->
-
-<!-- CREAR AULA -->
-<div *ngIf="vista === 'crear'" class="card" style="margin-left: 240px;">
-  <h2>Crear Aula</h2>
-
-  <form (ngSubmit)="crearAula()">
-    <label>
-      Nombre del aula
-      <input type="text" [(ngModel)]="aula.nombre" name="nombre" required>
-    </label>
-
-    <label>
-      Capacidad
-      <input type="number" [(ngModel)]="aula.capacidad" name="capacidad" required>
-    </label>
-
-    <label>
-      Curso
-      <input type="" [(ngModel)]="aula.ubicacion" name="ubicacion">
-    </label>
-
-    <button type="submit" class="btn-primary">
-      Guardar aula
+  <div class="tabs-wrapper">
+    <button class="tab-item" [class.active]="vista === 'crear'" (click)="vista = 'crear'">
+      <i class="fas fa-plus"></i>
+      <span>Crear aula</span>
     </button>
-  </form>
-</div>
+    <button class="tab-item" [class.active]="vista === 'ver'" (click)="vista = 'ver'">
+      <i class="fas fa-list"></i>
+      <span>Ver aulas</span>
+    </button>
+  </div>
 
-<!-- VER AULAS -->
-<div *ngIf="vista === 'ver'" class="card" style="margin-left: 240px;">
-  <h2>Listado de Aulas</h2>
+  <div *ngIf="vista === 'crear'" class="admin-card animate-fade-in">
+    <div class="card-header">
+      <h2>Crear Nueva Aula</h2>
+      <p>Complete la información para habilitar un nuevo espacio de estudio.</p>
+    </div>
 
-  <input
-    type="text"
-    class="search"
-    placeholder="Buscar aula..."
-    [(ngModel)]="busqueda"
-  >
+    <form (ngSubmit)="crearAula()" #aulaFormulario="ngForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Código del Aula</label>
+          <input type="text" [(ngModel)]="aulaForm.codigo" name="codigo" placeholder="Ej: L101" required>
+        </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Capacidad</th>
-        <th>Ubicación</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let a of aulasFiltradas()">
-        <td>{{ a.nombre }}</td>
-        <td>{{ a.capacidad }}</td>
-        <td>{{ a.ubicacion }}</td>
-      </tr>
-    </tbody>
-  </table>
+        <div class="form-group">
+          <label>Capacidad</label>
+          <input type="number" [(ngModel)]="aulaForm.capacidad" name="capacidad" required>
+        </div>
+
+        <div class="form-group">
+          <label>Curso</label>
+          <select [(ngModel)]="aulaForm.id_curso" name="id_curso" required class="modern-select">
+            <option value="" disabled selected>Seleccione un curso...</option>
+            <option *ngFor="let c of cursos" [value]="c.id">{{c.nombre}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Días de clase</label>
+          <input type="text" [(ngModel)]="aulaForm.dias" name="dias" placeholder="Lunes y Martes" required>
+        </div>
+
+        <div class="form-group full-width">
+          <label>Profesor Asignado</label>
+          <select [(ngModel)]="aulaForm.id_profesor" name="id_profesor" required class="modern-select">
+            <option value="" disabled selected>Seleccione un profesor...</option>
+            <option *ngFor="let p of profesores" [value]="p.id">{{ p.nombre }} {{ p.apellido }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="action-container">
+        <button type="submit" [disabled]="aulaFormulario.invalid" class="btn-save">
+          <i class="fas fa-save"></i>
+          <span>Guardar Aula</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="vista === 'ver'" class="admin-card animate-fade-in">
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h2>Listado de Aulas</h2>
+        <p>Aulas actualmente registradas en el sistema.</p>
+      </div>
+      
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Buscar aula..." [(ngModel)]="busqueda">
+      </div>
+    </div>
+
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>Información del Aula</th>
+          <th>Capacidad</th>
+          <th>Profesor / Horario</th>
+          <th>Dias</th>
+          <th style="text-align: right;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of aulas">
+          <td>
+            <div class="user-avatar">{{ a?.codigo?.substring(0,1) || 'A' }}</div>
+            <span>{{ a?.codigo }}</span>
+          </td>
+          <td>{{ a?.id_curso?.nombre || 'Sin curso' }}</td>
+          <td>{{ a?.id_profesor?.nombre }} {{ a?.id_profesor?.apellido }}</td>
+          <td>{{ a?.dias }}</td>
+          <td>
+            <button (click)="eliminarAula(a.id)" class="btn-delete">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

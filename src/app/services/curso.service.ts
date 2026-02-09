@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { Curso } from '../models/curso';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class CursoService {
   }
   
   listarCursos() {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<Curso[]>(this.apiUrl);
+  }
+
+  eliminarCurso(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

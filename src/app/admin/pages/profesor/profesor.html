@@ -16,67 +16,42 @@
       <h2>Registrar Nuevo Profesor</h2>
       <p>Complete los datos. La foto se almacenará de forma segura en nuestro servidor.</p>
     </div>
-    
     <form (ngSubmit)="crearProfesor()" class="form-grid">
       <div class="form-group">
         <label for="nombre">Nombre</label>
         <input type="text" id="nombre" [(ngModel)]="profesor.nombre" name="nombre" required>
       </div>
-
       <div class="form-group">
         <label for="apellido">Apellido</label>
         <input type="text" id="apellido" [(ngModel)]="profesor.apellido" name="apellido" required>
       </div>
-
       <div class="form-group">
         <label for="doc">Documento de identidad</label>
-        <input type="text" id="doc" [(ngModel)]="profesor.docidentidad" name="docidentidad" required>
+        <input type="text" id="doc" [(ngModel)]="profesor.docidentidad" name="docidentidad" required maxlength="12">
       </div>
-
       <div class="form-group">
         <label for="tel">Número de Celular</label>
-        <input type="tel" id="tel" [(ngModel)]="profesor.telefono" name="telefono" required>
+        <input type="tel" id="tel" [(ngModel)]="profesor.telefono" name="telefono" required maxlength="9">
       </div>
-
       <div class="form-group">
         <label for="esp">Especialidad</label>
         <input type="text" id="esp" [(ngModel)]="profesor.especialidad" name="especialidad">
       </div>
-
       <div class="form-group">
         <label for="email">Correo Electrónico</label>
-        <input type="email" id="email" [(ngModel)]="profesor.correo" name="correo">
+        <input type="email" id="email" [(ngModel)]="profesor.email" name="correo">
       </div>
-
       <div class="form-group">
         <label for="user">Usuario de Sistema</label>
         <input type="text" id="user" [(ngModel)]="profesor.usuario" name="usuario">
       </div>
-
       <div class="form-group">
         <label for="pass">Contraseña</label>
         <input type="password" id="pass" [(ngModel)]="profesor.password" name="password">
       </div>
 
-      <div class="form-group full-width">
-        <label>Foto de Perfil</label>
-        <div class="upload-container">
-          <label for="foto-input" class="upload-box">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <div class="upload-text">
-              <strong>Haz clic para subir</strong> o arrastra la imagen aquí
-              <span>JPG, PNG o WEBP (Máx. 2MB)</span>
-            </div>
-            <input type="file" id="foto-input"  accept="image/*" hidden>
-          </label>
-          <div class="preview-info">
-            <i class="fas fa-file-image"></i> 
-          </div>
-        </div>
-      </div>
-
       <div class="full-width action-container">
-        <button type="submit" class="btn-submit">
+        <button type="submit" class="btn-submit" (click)="crearProfesor()"> 
           <i class="fas fa-save"></i> 
           <span>Guardar y Registrar Profesor</span>
         </button>
@@ -108,19 +83,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of profesoresFiltrados()">
+          <tr *ngFor="let p of profesores">
             <td>
               <div class="user-info">
-                <div class="user-avatar">{{ p.nombre[0] }}{{ p.apellido[0] }}</div>
                 <span>{{ p.nombre }} {{ p.apellido }}</span>
               </div>
             </td>
             <td><span class="badge-pill">{{ p.especialidad }}</span></td>
-            <td><span class="text-muted">{{ p.correo }}</span></td>
+            <td><span class="text-muted">{{ p.email }}</span></td>
             <td><span class="status-dot">Activo</span></td>
             <td>
               <button class="btn-icon"><i class="fas fa-edit"></i></button>
-              <button class="btn-icon delete"><i class="fas fa-trash"></i></button>
+              <button (click)="eliminarProfesor(p.id)" class="btn-icon delete"><i class="fas fa-trash"></i></button>
             </td>
           </tr>
         </tbody>

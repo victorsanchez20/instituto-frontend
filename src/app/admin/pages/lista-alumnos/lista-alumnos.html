@@ -1,0 +1,63 @@
+<div class="list-container animate-fade-in">
+  <div class="page-header">
+    <div class="title-group">
+      <h1>Registro de Estudiantes</h1>
+      <span class="count-badge">{{ filtrados.length }} Alumnos activos</span>
+    </div>
+    <div class="actions-group">
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" [(ngModel)]="busqueda" placeholder="Buscar por nombre o DNI...">
+      </div>
+      <button class="btn-add">
+        <i class="fas fa-plus"></i> Nuevo Ingreso
+      </button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Estudiante</th>
+          <th>Correo Institucional</th>
+          <th>Usuario</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of filtrados">
+          <td>
+            <div class="student-profile">
+              <div class="initial-circle">{{ e.nombres?.substring(0,1) }}</div>
+              <div class="name-box">
+                <span class="full-name">{{ e.nombres }} {{ e.apellidos }}</span>
+                <span class="status-tag">Regular</span>
+              </div>
+            </div>
+          </td>
+          <td>{{ e.email || e.email }}</td>
+          <td><span class="user-pill">@{{ e.usuario }}</span></td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-action view" title="Ver Historial">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="btn-action edit" title="Editar Datos">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-action delete" (click)="eliminar(e.id)" title="Eliminar">
+                <i class="fas fa-user-minus"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="filtrados.length === 0" class="no-results">
+      <img src="assets/no-data.svg" alt="No hay datos" *ngIf="false">
+      <p>No se encontraron estudiantes con los criterios de búsqueda.</p>
+    </div>
+  </div>
+</div>

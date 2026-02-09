@@ -106,9 +106,16 @@
 /* Tabla Moderna */
 .modern-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 8px;
+  border-collapse: collapse;
 }
+
+.modern-table thead th {
+  background: #f8fafc;
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
 
 .modern-table th {
   padding: 16px;

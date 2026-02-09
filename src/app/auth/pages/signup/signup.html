@@ -1,1 +1,70 @@
-<p>signup works!</p>
+<div class="signup-container">
+  <div class="signup-box">
+    <div class="header">
+      <h1>Registro de Alumno</h1>
+      <p>Ingresa tus datos para crear una cuenta institucional</p>
+    </div>
+
+    <form #signupForm="ngForm" (ngSubmit)="registrar()">
+      <div class="form-grid">
+        
+        <div class="form-group">
+          <label>Nombres</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user"></i>
+            <input type="text" name="nombre" [(ngModel)]="registroData.nombre" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Apellidos</label>
+          <div class="input-wrapper">
+            <i class="fas fa-users"></i>
+            <input type="text" name="apellidos" [(ngModel)]="registroData.apellidos" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nombre de Usuario</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user-circle"></i>
+            <input type="text" name="usuario" [(ngModel)]="registroData.usuario" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input type="email" name="correo" [(ngModel)]="registroData.correo" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" [(ngModel)]="registroData.password" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Confirmar Contraseña</label>
+          <div class="input-wrapper">
+            <i class="fas fa-shield-alt"></i>
+            <input type="password" name="confirmar" [(ngModel)]="registroData.confirmar" required>
+          </div>
+        </div>
+
+      </div>
+
+      <button type="submit" class="btn-signup" [disabled]="signupForm.invalid">
+        Finalizar Registro
+      </button>
+
+      <div class="footer-links">
+        ¿Ya eres alumno? <a (click)="irALogin()">Inicia sesión aquí</a>
+      </div>
+    </form>
+  </div>
+</div>

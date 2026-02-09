@@ -1,69 +1,81 @@
-<section class="curso-container" style="margin-left: 240px;">
-
-  <!-- FORMULARIO -->
-  <form class="curso-form" (ngSubmit)="guardarCurso()">
-
+<section class="curso-container">
+  <form class="curso-form" (ngSubmit)="guardarCurso()" #cursoForm="ngForm">
+    <h2 class="form-title">Crear Nuevo Curso</h2>
+    
     <div class="form-grid">
-
-      <!-- IZQUIERDA -->
       <div class="form-left">
-        <label>Nombre del curso</label>
-        <input
-          type="text"
-          [(ngModel)]="nombre"
-          name="nombre"
-          required
-          placeholder="Nombre del curso"
-        />
-
-        <label>Descripción</label>
-        <textarea
-          [(ngModel)]="descripcion"
-          name="descripcion"
-          required
-          placeholder="Descripción del curso"
-        ></textarea>
-
-        <label>Imagen del curso</label>
-        <input
-          type="file"
-          accept="image/*"
-          (change)="onFileSelected($event)"
-        />
-      </div>
-
-      <!-- DERECHA -->
-      <div class="form-right">
-        <div class="image-preview" *ngIf="previewImage">
-          <img [src]="previewImage" alt="Preview">
+        <div class="form-group">
+          <label for="nombre">Nombre del curso</label>
+          <input
+            id="nombre"
+            type="text"
+            [(ngModel)]="nombre"
+            name="nombre"
+            required
+            placeholder="Ej: Angular Pro"
+          />
         </div>
 
-        <p *ngIf="!previewImage" class="image-placeholder">
-          Vista previa de la imagen
-        </p>
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea
+            id="descripcion"
+            [(ngModel)]="descripcion"
+            name="descripcion"
+            required
+            placeholder="¿De qué trata este curso?"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Imagen del curso</label>
+          <div class="file-input-wrapper">
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              (change)="onFileSelected($event)"
+              hidden
+            />
+            <label for="fileInput" class="btn-secondary">Seleccionar Imagen</label>
+            <span class="file-name">{{ selectedFile?.name || 'No hay archivo' }}</span>
+          </div>
+        </div>
       </div>
 
+      <div class="form-right">
+        <div class="preview-box" [class.has-image]="previewImage">
+          <img *ngIf="previewImage" [src]="previewImage" alt="Preview">
+          <div *ngIf="!previewImage" class="no-image">
+            <span class="icon">🖼️</span>
+            <p>Vista previa</p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- BOTÓN -->
     <div class="form-actions">
-      <button type="submit">Guardar Curso</button>
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="!cursoForm.form.valid || !selectedFile">
+        Guardar curso
+      </button>
     </div>
-
   </form>
 
-  <!-- DIVISOR -->
   <hr class="divider">
 
-  <!-- LISTADO -->
   <div class="curso-list">
     <div class="curso-card" *ngFor="let c of cursos">
-      <img [src]="c.imagen" alt="curso">
+      <div class="card-image">
+        <img [src]="'http://localhost:8080' + c.imagen" alt="curso">
+        <button class="btn-delete" (click)="eliminar(c.id)" title="Eliminar curso">✕</button>
+      </div>
       <div class="card-body">
         <h3>{{ c.nombre }}</h3>
         <p>{{ c.descripcion }}</p>
       </div>
     </div>
   </div>
-
 </section>
