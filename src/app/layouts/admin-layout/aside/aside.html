@@ -1,0 +1,63 @@
+<aside class="sidebar">
+  <h3 class="sidebar-title">Academica</h3>
+
+  <nav class="sidebar-nav">
+
+    <!-- INICIO (exacto) -->
+    <a
+      routerLink="/portal"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      style="cursor: pointer;"
+    >
+      <i class="fa-solid fa-house"></i>
+      <span>Inicio</span>
+    </a>
+
+    <a
+      routerLink="/portal/aula"
+      routerLinkActive="active"
+      style="cursor: pointer;"
+    >
+      <i class="fa-solid fa-plus"></i>
+      <span>Crear aula</span>
+    </a>
+
+    <a
+      routerLink="/portal/alumnos"
+      routerLinkActive="active"
+      style="cursor: pointer;"
+    >
+      <i class="fa-solid fa-graduation-cap"></i>
+      <span>Alumnos</span>
+    </a>
+
+    <a
+      routerLink="/portal/profesores"
+      routerLinkActive="active"
+      style="cursor: pointer;"
+    >
+      <i class="fa-solid fa-user-tie"></i>
+      <span>Profesores</span>
+    </a>
+
+    <a
+      routerLink="/portal/cursos"
+      routerLinkActive="active"
+      style="cursor: pointer;"
+    >
+      <i class="fa-solid fa-user-tie"></i>
+      <span>Cursos</span>
+    </a>
+
+    <a
+      routerLink="/portal/configuracion"
+      routerLinkActive="active"
+      style="cursor: pointer;"
+    >
+      <i class="fa-solid fa-gear"></i>
+      <span>Configuración</span>
+    </a>
+
+  </nav>
+</aside>

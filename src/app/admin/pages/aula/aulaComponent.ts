@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, NgModule, OnInit } from '@angular/core';
 import { FormsModule,  } from '@angular/forms';
 import { ProfesorService } from '../../../services/profesor.service';
@@ -11,7 +11,7 @@ import { Aula } from '../../../models/aula';
 @Component({
   selector: 'app-aula',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor],
+  imports: [FormsModule, NgIf, NgFor, DatePipe],
   templateUrl: './aula.html',
   styleUrl: './aula.css',
 })
@@ -21,16 +21,29 @@ export class aulaComponent implements OnInit {
 
   aulaForm = {
     codigo: '',
-    capacidad: null,
+    cantidad: 0,
     duracion: '',
-    dias: '',
+    dias: [] as string[], // Cambiado de '' a []
     id_curso: '',
-    id_profesor: '' 
+    id_profesor: '',
+    fecha_inicio: '', // Agregados porque son obligatorios en tu backend
+    fecha_fin: ''
   };
+
+  listaDiasDefault = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'];
 
   profesores: Profesor[] = [];
   cursos: Curso[] = [];
   aulas: any[] = [];
+
+  onDiaChange(dia: string, event: any) {
+    if (event.target.checked) {
+      this.aulaForm.dias.push(dia);
+    } else {
+      this.aulaForm.dias = this.aulaForm.dias.filter(d => d !== dia);
+    }
+  }
+
 
   ngOnInit(): void {
     this.listarProfesor();
@@ -47,43 +60,43 @@ export class aulaComponent implements OnInit {
     const cursoSeleccionado = this.cursos.find(c => c.id == Number(this.aulaForm.id_curso));
     const profesorSeleccionado = this.profesores.find(p => p.id == Number(this.aulaForm.id_profesor));
 
-    if (!cursoSeleccionado || !profesorSeleccionado) {
-      alert('Por favor seleccione curso y profesor');
+    if (!cursoSeleccionado || !profesorSeleccionado || this.aulaForm.dias.length === 0) {
+      alert('Por favor seleccione curso, profesor y al menos un día');
       return;
     }
 
-    // Construimos el objeto para enviar
-    // Asegúrate de que tu interfaz Aula use 'id_curso' e 'id_profesor'
     const dataEnviar: Aula = {
       codigo: this.aulaForm.codigo,
       duracion: this.aulaForm.duracion || "1 hora",
-      dias: this.aulaForm.dias,
-      id_curso: cursoSeleccionado,   
-      id_profesor: profesorSeleccionado 
+      dias: this.aulaForm.dias, // Ahora sí coinciden los tipos (arreglo con arreglo)
+      cantidad: this.aulaForm.cantidad,
+      fecha_inicio: this.aulaForm.fecha_inicio,
+      fecha_fin: this.aulaForm.fecha_fin,
+      id_curso: cursoSeleccionado,
+      id_profesor: profesorSeleccionado
     };
 
     this.aulaService.crearAula(dataEnviar).subscribe({
       next: (res) => {
         alert('¡Aula guardada con éxito!');
         this.resetearFormulario();
-        this.listarAulas(); // Refrescamos la lista
-        this.vista = 'ver'; // Cambiamos de pestaña
+        this.listarAulas();
+        this.vista = 'ver';
       },
-      error: (err) => {
-        console.error('Error al guardar:', err);
-        alert('Error al guardar: revisa la consola del servidor');
-      }
+      error: (err) => console.error('Error al guardar:', err)
     });
   }
 
   resetearFormulario() {
     this.aulaForm = {
       codigo: '',
-      capacidad: null,
+      cantidad: 0,
       id_curso: "",
-      dias: '',
+      dias: [], // Resetear a arreglo vacío
       duracion: "",
-      id_profesor: ""
+      id_profesor: "",
+      fecha_inicio: '',
+      fecha_fin: ''
     };
   }
 

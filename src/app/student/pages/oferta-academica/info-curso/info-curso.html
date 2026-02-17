@@ -1,0 +1,75 @@
+<div class="info-container" *ngIf="curso && !loading">
+  <header class="course-hero">
+    <div class="hero-image">
+      <img *ngIf="curso.imagen" [src]="'http://localhost:8080' + curso.imagen" [alt]="curso.nombre">
+    </div>
+    <div class="hero-text">
+      <span class="badge">Curso Profesional</span>
+      <h1>{{ curso.nombre }}</h1>
+      <p class="description">{{ curso.descripcion }}</p>
+    </div>
+  </header>
+
+  <section class="classrooms-section">
+    <div class="section-header">
+      <h2 class="section-subtitle">Horarios y Aulas</h2>
+      <span class="count-badge">{{ aulas.length }} Grupos</span>
+    </div>
+
+    <div class="classroom-list">
+      <div class="classroom-row" *ngFor="let item of aulas">
+        
+        <div class="col-main">
+          <span class="aula-tag">Aula {{ item.codigo }}</span>
+          <div class="date-range">
+            <span class="icon">📅</span>
+            <span>{{ item.fecha_inicio | date:'dd MMM' }} - {{ item.fecha_fin | date:'dd MMM, yyyy' }}</span>
+          </div>
+        </div>
+
+        <div class="col-schedule">
+          <div class="days-chips">
+            <span class="day-chip" *ngFor="let dia of item.dias">{{ dia }}</span>
+          </div>
+          <div class="time-info">
+            <span class="icon">🕒</span> {{ item.duracion }}
+          </div>
+        </div>
+
+        <div class="col-capacity">
+          <span class="label">Disponibilidad</span>
+          <div class="capacity-container">
+            <span class="cap-text">{{ item.inscritos || 0 }} / {{ item.cantidad }}</span>
+            <div class="progress-bar">
+              <div class="progress-fill" 
+                   [style.width.%]="((item.inscritos || 0) / item.cantidad) * 100"
+                   [class.critical]="(item.inscritos / item.cantidad) > 0.8">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-professor">
+          <div class="prof-avatar">
+            {{ item.id_profesor.nombre[0] }}{{ item.id_profesor.apellido[0] }}
+          </div>
+          <div class="prof-details">
+            <span class="label">Instructor</span>
+            <span class="prof-name">{{ item.id_profesor.nombre }} {{ item.id_profesor.apellido }}</span>
+          </div>
+        </div>
+
+        <div class="col-action">
+          <button
+            class="btn-enroll"
+            (click)="inscribirme(item.idAula)"
+            [disabled]="item.inscritos >= item.cupoMaximo">
+
+            {{ item.inscritos >= item.cantidad ? 'Agotado' : 'Inscribirme' }}
+
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

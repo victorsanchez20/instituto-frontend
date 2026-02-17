@@ -89,21 +89,21 @@ export class CursoComponet implements OnInit {
   }
 
   eliminar(id: any) {
-  // 1. Confirmación de seguridad
-  if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
-    
-    this.cursoService.eliminarCurso(id).subscribe({
-      next: () => {
-        // 2. Filtramos el array local para que desaparezca de la vista de inmediato
-        this.cursos = this.cursos.filter(c => c.id !== id);
-        console.log('Curso eliminado con éxito');
-      },
-      error: (err) => {
-        console.error('Error al eliminar:', err);
-        alert('No se pudo eliminar el curso.');
-      }
-    });
-    this.cdr.detectChanges();
+    // 1. Confirmación de seguridad
+    if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
+      
+      this.cursoService.eliminarCurso(id).subscribe({
+        next: () => {
+          // 2. Filtramos el array local para que desaparezca de la vista de inmediato
+          this.cursos = this.cursos.filter(c => c.id !== id);
+          console.log('Curso eliminado con éxito');
+        },
+        error: (err) => {
+          console.error('Error al eliminar:', err);
+          alert('No se pudo eliminar el curso.');
+        }
+      });
+      this.cdr.detectChanges();
+    }
   }
-}
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { EstudianteService } from '../../../services/estudiante.service';
 import { Estudiante } from '../../../models/estudiante';
 import { CommonModule } from '@angular/common';
@@ -15,7 +15,7 @@ export class ListaAlumnos {
 estudiantes: Estudiante[] = [];
   busqueda: string = '';
 
-  constructor(private estudianteService: EstudianteService) {}
+  constructor(private estudianteService: EstudianteService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.cargarEstudiantes();
@@ -25,6 +25,7 @@ estudiantes: Estudiante[] = [];
     this.estudianteService.readAlumno().subscribe({
       next: (data: any) => {
         this.estudiantes = data;
+        this.cdr.detectChanges();
       },
       error: (err) => console.error('Error al obtener estudiantes', err)
     });

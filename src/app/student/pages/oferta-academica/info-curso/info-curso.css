@@ -1,0 +1,501 @@
+/* --- VARIABLES --- */
+:root {
+  --primary: #4361ee;
+  --bg-body: #f8fafe;
+  --text-main: #2b2d42;
+  --text-muted: #8d99ae;
+  --white: #ffffff;
+}
+
+.info-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-body);
+}
+
+/* --- HERO SECTION --- */
+.course-hero {
+  display: flex;
+  gap: 40px;
+  background: var(--white);
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  margin-bottom: 50px;
+}
+
+.hero-image {
+  flex: 0 0 350px;
+  height: 220px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.hero-text h1 {
+  font-size: 2.8rem;
+  color: var(--text-main);
+  margin: 10px 0;
+}
+
+/* --- CLASSROOM GRID --- */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.count-badge {
+  background: #e0e7ff;
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.classroom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.classroom-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid #edf2f7;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.classroom-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+}
+
+/* --- CARD INTERNALS --- */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.aula-code {
+  font-weight: 800;
+  color: var(--text-main);
+  background: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.status-indicator {
+  color: #10b981;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.status-indicator::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.info-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.info-row .icon { font-size: 1.2rem; }
+
+.info-row label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-row p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* --- PROFESSOR FOOTER --- */
+.card-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.professor-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.prof-avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.prof-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.prof-name {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px;
+  background: var(--white);
+  border-radius: 20px;
+  color: var(--text-muted);
+}
+
+/* --- LISTADO HORIZONTAL --- */
+.classroom-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.classroom-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1.5fr 1.2fr 1.2fr 1fr;
+  align-items: center;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #808080;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.classroom-row:hover {
+  border-color: #4361ee;
+  box-shadow: 0 4px 20px rgba(67, 97, 238, 0.08);
+  transform: scale(1.01);
+}
+
+/* --- COLUMNAS --- */
+.col-code {
+  flex: 0 0 100px;
+}
+
+.col-info {
+  flex: 1;
+  display: flex;
+  gap: 40px;
+}
+
+.col-capacity {
+  flex: 0 0 150px;
+  text-align: center;
+}
+
+.col-professor {
+  flex: 0 0 250px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-left: 1px solid #f0f0f0;
+  padding-left: 20px;
+}
+
+.col-action {
+  flex: 0 0 150px;
+  text-align: right;
+}
+
+/* --- ELEMENTOS INTERNOS --- */
+.label {
+  display: block;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.value {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-item .icon {
+  font-size: 1.2rem;
+}
+
+.prof-avatar {
+  width: 36px;
+  height: 36px;
+  background: #4361ee;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.value-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+/* --- BOTÓN --- */
+.btn-enroll {
+  width: 100%;
+  background: #4361ee;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-enroll:hover {
+  background: #3046bc;
+}
+
+.btn-enroll:hover:not(:disabled) {
+  background: #3046bc;
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+}
+
+.btn-enroll:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+
+/* Responsivo: Si la pantalla es pequeña, vuelve a ser tarjeta */
+@media (max-width: 900px) {
+  .classroom-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .col-professor {
+    border-left: none;
+    padding-left: 0;
+  }
+  .col-action {
+    width: 100%;
+  }
+  .btn-enroll {
+    width: 100%;
+  }
+}
+
+
+
+
+/* --- VARIABLES --- */
+:root {
+  --primary: #4361ee;
+  --primary-light: #e0e7ff;
+  --success: #10b981;
+  --danger: #ef4444;
+  --bg-body: #f1f5f9;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --white: #ffffff;
+  --radius: 16px;
+}
+
+.info-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* --- HERO SECTION --- */
+.course-hero {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  margin-bottom: 40px;
+  align-items: center;
+}
+
+.hero-image {
+  height: 200px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.hero-image img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.hero-text .badge {
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.hero-text h1 {
+  font-size: 2.2rem;
+  color: var(--text-main);
+  margin: 15px 0 10px;
+}
+
+.description { color: var(--text-muted); line-height: 1.6; }
+
+/* --- SECCIÓN DE AULAS --- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.section-subtitle { font-size: 1.5rem; color: var(--text-main); }
+
+.classroom-list { display: flex; flex-direction: column; gap: 15px; }
+
+
+
+/* --- COLUMNAS ESPECÍFICAS --- */
+.aula-tag {
+  display: inline-block;
+  font-weight: 800;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 4px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.date-range {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Días y Horas */
+.days-chips {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.day-chip {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 2px 8px;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.time-info { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
+
+/* Capacidad y Progreso */
+.label {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.cap-text { font-size: 0.85rem; font-weight: 700; color: var(--text-main); }
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--success);
+  transition: width 0.5s ease;
+}
+
+.progress-fill.critical { background: var(--danger); }
+
+/* Profesor */
+.col-professor { display: flex; align-items: center; gap: 12px; }
+
+.prof-avatar {
+  width: 40px; height: 40px;
+  background: var(--text-main);
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.prof-name { font-size: 0.9rem; font-weight: 700; color: var(--text-main); display: block; }
+
+/* Responsivo */
+@media (max-width: 950px) {
+  .course-hero { grid-template-columns: 1fr; text-align: center; }
+  .hero-image { width: 100%; max-width: 400px; margin: 0 auto; }
+  .classroom-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .col-action { grid-column: span 2; }
+}

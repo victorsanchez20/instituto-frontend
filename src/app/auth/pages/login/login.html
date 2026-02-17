@@ -1,11 +1,16 @@
 <div class="login-container">
   <div class="login-card">
+    <div class="tabs">
+      <button [class.active]="tipoUsuario === 'alumno'" (click)="setTipo('alumno')">Alumnos</button>
+      <button [class.active]="tipoUsuario === 'admin'" (click)="setTipo('admin')">Admin / Prof</button>
+    </div>
+
     <h2>Iniciar Sesión</h2>
-    <p class="subtitle">Accede al portal académico</p>
+    <p class="subtitle">Portal para {{ tipoUsuario === 'alumno' ? 'Estudiantes' : 'Personal' }}</p>
 
     <form (ngSubmit)="validarUsuario()">
       <div class="input-group">
-        <label for="usuario">Usuario</label>
+        <label for="usuario">Usuario {{ tipoUsuario === 'admin' ? 'Administrativo' : '' }}</label>
         <input type="text" id="usuario" placeholder="Ingrese su usuario" [(ngModel)]="user" name="user" required>
       </div>
 
@@ -14,9 +19,14 @@
         <input type="password" id="password" placeholder="Ingrese su contraseña" [(ngModel)]="pass" name="pass" required>
       </div>
 
-      <button type="submit">Ingresar</button>
+      <button type="submit" class="btn-ingresar">Ingresar como {{ tipoUsuario | titlecase }}</button>
 
       <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
     </form>
+    <div class="signup-footer">
+      <p>¿No tienes una cuenta? 
+        <a [routerLink]="['/signup']" [queryParams]="{ role: tipoUsuario }">Regístrate aquí</a>
+      </p>
+    </div>
   </div>
 </div>

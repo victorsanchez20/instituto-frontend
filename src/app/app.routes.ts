@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { StudentLayout } from './layouts/student-layout/student-layout';
+import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { Inicio } from './student/pages/inicio/inicio';
 import { PublicLayout } from './layouts/public-layout/public-layout';
 import { Home } from './public/pages/home/home';
@@ -13,6 +13,9 @@ import { ListaAlumnos } from './admin/pages/lista-alumnos/lista-alumnos';
 import { Nosotros } from './public/pages/nosotros/nosotros';
 import { CursosPublic } from './public/pages/cursos-public/cursos-public';
 import { Contacto } from './public/pages/contacto/contacto';
+import { StudentLayout } from './layouts/student-layout/student-layout';
+import { OfertaAcademica } from './student/pages/oferta-academica/oferta-academica';
+import { InfoCurso } from './student/pages/oferta-academica/info-curso/info-curso';
 
 export const routes: Routes = [
     {
@@ -40,7 +43,7 @@ export const routes: Routes = [
     // 3. RUTAS DE ESTUDIANTE / PORTAL
     {
         path: 'portal',
-        component: StudentLayout,
+        component: AdminLayout,
         children: [
             { path: '', component: Inicio },
             { path: 'aula', component: aulaComponent},
@@ -50,5 +53,16 @@ export const routes: Routes = [
         ]
     },
     
+    {
+        path: 'portal-estudiante',
+        component: StudentLayout,
+        children: [
+            { path: '', component: Inicio},
+            { path: 'oferta-academica', component: OfertaAcademica },
+            { path: 'curso/:id', component: InfoCurso }
+
+        ]
+    },
+
     { path: '**', redirectTo: '' }
 ];

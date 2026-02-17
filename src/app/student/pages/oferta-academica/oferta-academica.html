@@ -1,0 +1,17 @@
+<div class="container">
+  <h2 class="section-title">Nuestros Cursos</h2>
+
+  <div class="curso-grid">
+    <div class="curso-card" *ngFor="let curso of cursos">
+      <div class="card-image" (click)="ingresarCurso(curso.id!)">
+        <!-- IMPORTANTE: Usar imagenUrl -->
+        <img [src]="'http://localhost:8080' + curso.imagen" [alt]="curso.nombre">
+      </div>
+      
+      <div class="card-content">
+        <h3>{{ curso.nombre }}</h3>
+        <p>{{ curso.descripcion }}</p>
+      </div>
+    </div>
+  </div>
+</div>
