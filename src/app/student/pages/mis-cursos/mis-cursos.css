@@ -1,0 +1,197 @@
+:root {
+  --primary: #4f46e5;
+  --meet-color: #00832d;
+  --classroom-color: #f4b400;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --bg-card: #ffffff;
+}
+
+.mis-cursos-container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.titulo-seccion {
+  font-size: 1.8rem;
+  color: #1a202c;
+  margin-bottom: 25px;
+  border-left: 5px solid #4a90e2;
+  padding-left: 15px;
+}
+
+/* Contenedor de la Fila */
+.curso-row {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  border: 1px solid #edf2f7;
+  transition: all 0.2s ease;
+}
+
+.curso-row:hover {
+  transform: scale(1.01);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* 1. Área de Imagen */
+.curso-media {
+  position: relative;
+  flex: 0 0 120px; /* Ancho fijo para la imagen */
+  margin-right: 20px;
+}
+
+.curso-media img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.aula-badge {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background: #2d3748;
+  color: white;
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* 2. Área de Texto Central */
+.curso-body {
+  flex: 1; /* Ocupa todo el espacio disponible */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.curso-main h2 {
+  font-size: 1.15rem;
+  margin: 0 0 4px 0;
+  color: #2d3748;
+}
+
+.profesor-text {
+  font-size: 0.9rem;
+  color: #718096;
+  margin: 0;
+}
+
+/* Mini tabla de detalles interna */
+.curso-meta {
+  display: flex;
+  gap: 40px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-item .label {
+  font-size: 0.75rem;
+  color: #a0aec0;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.meta-item .value {
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+/* 3. Área de Botones */
+.curso-actions {
+  flex: 0 0 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-action {
+  text-decoration: none;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.btn-action.meet { background: #00832d; color: white; }
+.btn-action.classroom { background: #f4b400; color: #3c4043; }
+
+.status-pill {
+  background: #f7fafc;
+  color: #a0aec0;
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 10px;
+  border: 1px dashed #cbd5e0;
+  border-radius: 6px;
+}
+
+/* Responsive: si la pantalla es muy pequeña, vuelve a vertical */
+@media (max-width: 768px) {
+  .curso-row {
+    flex-direction: column;
+    text-align: center;
+  }
+  .curso-body {
+    flex-direction: column;
+    padding: 20px 0;
+    gap: 15px;
+  }
+  .curso-meta {
+    gap: 20px;
+  }
+}
+
+
+
+
+/* Contenedor del título */
+.title-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+/* Estilo del Badge */
+.badge-estado {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  background: #f0f0f0; /* Color por defecto */
+}
+
+/* Colores según el nombre del estado */
+.status-activo {
+  background-color: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.status-pendiente {
+  background-color: #fef9c3;
+  color: #854d0e;
+  border: 1px solid #fef08a;
+}
+
+.status-terminado {
+  background-color: #f1f5f9;
+  color: #475569;
+}

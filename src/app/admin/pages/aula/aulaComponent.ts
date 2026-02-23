@@ -7,11 +7,12 @@ import { Curso } from '../../../models/curso';
 import { CursoService } from '../../../services/curso.service';
 import { AulaService } from '../../../services/aula.service';
 import { Aula } from '../../../models/aula';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-aula',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, DatePipe],
+  imports: [FormsModule, NgIf, NgFor, TitleCasePipe],
   templateUrl: './aula.html',
   styleUrl: './aula.css',
 })
@@ -23,11 +24,13 @@ export class aulaComponent implements OnInit {
     codigo: '',
     cantidad: 0,
     duracion: '',
-    dias: [] as string[], // Cambiado de '' a []
+    dias: [] as string[],
     id_curso: '',
     id_profesor: '',
-    fecha_inicio: '', // Agregados porque son obligatorios en tu backend
-    fecha_fin: ''
+    fecha_inicio: '',
+    fecha_fin: '',
+    meet_link: '',
+    classroom_link: ''
   };
 
   listaDiasDefault = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'];
@@ -54,7 +57,8 @@ export class aulaComponent implements OnInit {
   constructor(private profesorService: ProfesorService, 
               private cursoService: CursoService,
               private aulaService: AulaService,
-              private cdr: ChangeDetectorRef) {}
+              private cdr: ChangeDetectorRef,
+              public router: Router) {}
 
   crearAula() {
     const cursoSeleccionado = this.cursos.find(c => c.id == Number(this.aulaForm.id_curso));
@@ -68,10 +72,12 @@ export class aulaComponent implements OnInit {
     const dataEnviar: Aula = {
       codigo: this.aulaForm.codigo,
       duracion: this.aulaForm.duracion || "1 hora",
-      dias: this.aulaForm.dias, // Ahora sí coinciden los tipos (arreglo con arreglo)
+      dias: this.aulaForm.dias,
       cantidad: this.aulaForm.cantidad,
       fecha_inicio: this.aulaForm.fecha_inicio,
       fecha_fin: this.aulaForm.fecha_fin,
+      meet_link: this.aulaForm.meet_link,
+      classroom_link: this.aulaForm.classroom_link,
       id_curso: cursoSeleccionado,
       id_profesor: profesorSeleccionado
     };
@@ -96,7 +102,9 @@ export class aulaComponent implements OnInit {
       duracion: "",
       id_profesor: "",
       fecha_inicio: '',
-      fecha_fin: ''
+      fecha_fin: '',
+      meet_link: '',
+      classroom_link: ''
     };
   }
 
@@ -149,4 +157,8 @@ export class aulaComponent implements OnInit {
     })
   }
 
+
+  verIntegrantes(id: number) {
+    this.router.navigate(['/portal/aula/', id]);
+  }
 }

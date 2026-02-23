@@ -14,4 +14,7 @@ export interface Aula {
     
     id_curso: Curso;
     id_profesor: Profesor;
+
+    meet_link: String;
+    classroom_link: String;
 }

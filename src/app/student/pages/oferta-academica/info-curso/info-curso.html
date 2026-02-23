@@ -60,13 +60,29 @@
         </div>
 
         <div class="col-action">
+
+          <!-- YA INSCRITO EN ESTA AULA -->
           <button
-            class="btn-enroll"
-            (click)="inscribirme(item.idAula)"
-            [disabled]="item.inscritos >= item.cupoMaximo">
+            *ngIf="yaInscritoEnAula(item.id)"
+            class="btn-cancel"
+            (click)="cancelar(item.inscripcionId)">
+            Cancelar
+          </button>
 
-            {{ item.inscritos >= item.cantidad ? 'Agotado' : 'Inscribirme' }}
-
+          <!-- PUEDE INSCRIBIRSE -->
+          <button
+            *ngIf="!yaInscritoEnAula(item.id)" class="btn-enroll" (click)="inscribirme(item.id)"
+            [disabled]="
+              item.inscritos >= item.cantidad ||
+              cursoBloqueado
+            ">
+            {{
+              item.inscritos >= item.cantidad
+                ? 'Agotado'
+                : cursoBloqueado
+                  ? 'Ya inscrito en otro horario'
+                  : 'Inscribirme'
+            }}
           </button>
         </div>
       </div>

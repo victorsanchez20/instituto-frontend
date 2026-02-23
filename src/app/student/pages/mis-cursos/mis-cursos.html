@@ -1,0 +1,58 @@
+<div class="mis-cursos-container" *ngIf="!loading">
+  <h1 class="titulo-seccion">Mis Cursos Inscritos</h1>
+
+  <div *ngIf="inscripciones.length === 0" class="empty-state">
+    <p>No estás inscrito en ningún curso aún.</p>
+  </div>
+
+  <div class="curso-row" *ngFor="let ins of inscripciones">
+    <div class="curso-media">
+      <img [src]="'http://localhost:8080' + ins.aula.id_curso.imagen" [alt]="ins.aula.id_curso.nombre">
+      <span class="aula-badge">{{ ins.aula.codigo }}</span>
+    </div>
+
+    <div class="curso-body">
+      <div class="curso-main">
+        <h2>{{ ins.aula.id_curso.nombre }}</h2>
+        <span *ngIf="ins.estado && ins.estado.nombre" 
+              class="badge-estado" 
+              [ngClass]="'status-' + ins.estado.nombre.toLowerCase()">
+          {{ ins.estado.nombre }}
+        </span>
+
+        <span *ngIf="!ins.estado" class="badge-estado status-error">
+          Sin Estado
+        </span>
+        
+        <p class="profesor-text">
+          <i class="icon-user"></i> Prof. {{ ins.aula.id_profesor.nombre }} {{ ins.aula.id_profesor.apellido }}
+        </p>
+      </div>
+
+      <div class="curso-meta">
+        <div class="meta-item">
+          <span class="label">Horario</span>
+          <span class="value">{{ ins.aula.duracion }} ({{ ins.aula.dias }})</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Fechas</span>
+          <span class="value">{{ ins.aula.fecha_inicio | date:'dd/MM' }} al {{ ins.aula.fecha_fin | date:'dd/MM/yy' }} </span>
+        </div>
+      </div>
+    </div>
+    <div class="curso-actions">
+      <ng-container *ngIf="claseDisponible(ins.aula); else fueraHorario">
+        <a [href]="ins.aula.meetLink" target="_blank" class="btn-action meet">
+          Meet
+        </a>
+        <a [href]="ins.aula.classroomLink" target="_blank" class="btn-action classroom">
+          Classroom
+        </a>
+      </ng-container>
+      
+      <ng-template #fueraHorario>
+        <div class="status-pill">Próxima clase pronto</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

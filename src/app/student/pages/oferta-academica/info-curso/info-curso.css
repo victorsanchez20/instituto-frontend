@@ -327,8 +327,6 @@
 }
 
 
-
-
 /* --- VARIABLES --- */
 :root {
   --primary: #4361ee;
@@ -498,4 +496,45 @@
     gap: 20px;
   }
   .col-action { grid-column: span 2; }
+}
+
+/* BOTÓN BASE (misma forma para ambos) */
+.btn-enroll,
+.btn-cancel {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-width: 140px;
+}
+
+/* INSCRIBIRSE (verde) */
+.btn-enroll {
+  background: #16a34a;
+  color: white;
+}
+
+.btn-enroll:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+}
+
+/* CANCELAR (rojo elegante, no chillón) */
+.btn-cancel {
+  background: #dc2626;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+/* DESHABILITADO */
+button:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+  transform: none;
 }
