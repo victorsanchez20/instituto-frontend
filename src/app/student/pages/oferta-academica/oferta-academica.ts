@@ -18,6 +18,8 @@ export class OfertaAcademica implements OnInit {
   selectedFile: File | null = null;
   previewImage: string | ArrayBuffer | null = null;
 
+  apiUrl: String = environment.api
+
   // Lista de cursos
   cursos: Curso[] = [];
 

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Aula } from '../models/aula';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +19,9 @@ export class AulaService {
 
   listarAulas() {
     return this.http.get<Aula[]>(`${this.apiUrl}`)
+  }
+
+  actualizarAula(id: Number, aula: Aula): Observable<Aula> {
+    return this.http.put<Aula>(`${this.apiUrl}/${id}`, aula)
   }
 }

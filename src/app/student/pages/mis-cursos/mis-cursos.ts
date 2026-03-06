@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { InscripcionService } from '../../../services/inscripcion.service';
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Curso } from '../../../models/curso';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-mis-cursos',
@@ -17,6 +18,7 @@ export class MisCursos implements OnInit {
   alumnoId!: number;
   loading = true;
 
+  apiUrl: String = environment.api
   hoy = new Date();
 
   constructor(private inscripcionService: InscripcionService) {}

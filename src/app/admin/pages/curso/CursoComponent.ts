@@ -3,6 +3,7 @@ import { CursoService } from '../../../services/curso.service';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { Curso } from '../../../models/curso';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-curso',
@@ -19,6 +20,8 @@ export class CursoComponet implements OnInit {
   previewImage: string | ArrayBuffer | null = null;
 
   cursos: Curso[] = [];
+
+  apiUrl: String = environment.api
 
   ngOnInit(): void {
       this.listarCursos();

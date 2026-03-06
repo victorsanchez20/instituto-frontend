@@ -23,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let e of filtrados">
+        <tr *ngFor="let e of paginados">
           <td>
             <div class="student-profile">
               <div class="initial-circle">{{ e.nombres?.substring(0,1) }}</div>
@@ -52,9 +52,28 @@
       </tbody>
     </table>
 
-    <div *ngIf="filtrados.length === 0" class="no-results">
+    <div *ngIf="listaFiltrada.length === 0" class="no-results">
       <img src="assets/no-data.svg" alt="No hay datos" *ngIf="false">
       <p>No se encontraron estudiantes con los criterios de búsqueda.</p>
+    </div>
+
+     <!-- Paginación -->
+    <div class="pagination" *ngIf="totalPaginas > 1">
+      <button class="page-btn" (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <button
+        *ngFor="let p of paginas"
+        class="page-btn"
+        [class.active]="p === paginaActual"
+        (click)="cambiarPagina(p)">
+        {{ p }}
+      </button>
+
+      <button class="page-btn" (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
   </div>
 </div>

@@ -1,4 +1,10 @@
 :host {
+  display: block;
+  width: 250px;
+  min-width: 250px;
+  height: 100%;
+  overflow-y: auto;
+
   --sidebar-bg: #ffffff;
   --primary-color: #2a5298;
   --text-main: #334155;

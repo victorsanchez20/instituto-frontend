@@ -1,0 +1,23 @@
+:host {
+    display: block;
+    height: 100vh;
+}
+
+app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 60px;
+}
+
+.layout {
+    display: flex;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+}
+
+.content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}

@@ -1,7 +1,7 @@
 <div class="info-container" *ngIf="curso && !loading">
   <header class="course-hero">
     <div class="hero-image">
-      <img *ngIf="curso.imagen" [src]="'http://localhost:8080' + curso.imagen" [alt]="curso.nombre">
+      <img *ngIf="curso.imagen" [src]="apiUrl + curso.imagen" [alt]="curso.nombre">
     </div>
     <div class="hero-text">
       <span class="badge">Curso Profesional</span>
@@ -13,7 +13,7 @@
   <section class="classrooms-section">
     <div class="section-header">
       <h2 class="section-subtitle">Horarios y Aulas</h2>
-      <span class="count-badge">{{ aulas.length }} Grupos</span>
+      <span class="count-badge">{{ aulas.length }} Aulas</span>
     </div>
 
     <div class="classroom-list">
@@ -41,9 +41,10 @@
           <div class="capacity-container">
             <span class="cap-text">{{ item.inscritos || 0 }} / {{ item.cantidad }}</span>
             <div class="progress-bar">
-              <div class="progress-fill" 
-                   [style.width.%]="((item.inscritos || 0) / item.cantidad) * 100"
-                   [class.critical]="(item.inscritos / item.cantidad) > 0.8">
+              <div class="progress-fill"
+                   [style.width.%]="item.cantidad > 0 ? ((item.inscritos || 0) / item.cantidad) * 100 : 0"
+                   [class.critical]="(item.inscritos / item.cantidad) > 0.8"
+                   [style.background-color]="(item.inscritos / item.cantidad) > 0.8 ? '#ef4444' : '#22c55e'">
               </div>
             </div>
           </div>

@@ -8,7 +8,6 @@
 }
 
 .page-content {
-  margin-left: 230px; /* Sincronizado con Sidebar */
   padding: 30px;
   background-color: var(--bg-body);
   min-height: calc(100vh - 60px);
@@ -111,7 +110,7 @@
 
 .day-chip input:checked + span {
   background: var(--primary);
-  color: white;
+  color: rgb(3, 110, 250);
   border-color: var(--primary);
 }
 

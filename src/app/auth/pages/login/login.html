@@ -23,7 +23,7 @@
 
       <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
     </form>
-    <div class="signup-footer">
+    <div class="signup-footer" *ngIf="tipoUsuario === 'alumno'">
       <p>¿No tienes una cuenta? 
         <a [routerLink]="['/signup']" [queryParams]="{ role: tipoUsuario }">Regístrate aquí</a>
       </p>

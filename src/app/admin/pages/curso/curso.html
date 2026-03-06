@@ -69,7 +69,7 @@
   <div class="curso-list">
     <div class="curso-card" *ngFor="let c of cursos">
       <div class="card-image">
-        <img [src]="'http://localhost:8080' + c.imagen" alt="curso">
+        <img [src]="apiUrl + c.imagen" alt="curso">
         <button class="btn-delete" (click)="eliminar(c.id)" title="Eliminar curso">✕</button>
       </div>
       <div class="card-body">

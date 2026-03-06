@@ -7,7 +7,7 @@
 
   <div class="curso-row" *ngFor="let ins of inscripciones">
     <div class="curso-media">
-      <img [src]="'http://localhost:8080' + ins.aula.id_curso.imagen" [alt]="ins.aula.id_curso.nombre">
+      <img [src]="apiUrl + ins.aula.id_curso.imagen" [alt]="ins.aula.id_curso.nombre">
       <span class="aula-badge">{{ ins.aula.codigo }}</span>
     </div>
 
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="curso-actions">
-      <ng-container *ngIf="claseDisponible(ins.aula); else fueraHorario">
+      <ng-container>
         <a [href]="ins.aula.meetLink" target="_blank" class="btn-action meet">
           Meet
         </a>
@@ -49,10 +49,7 @@
           Classroom
         </a>
       </ng-container>
-      
-      <ng-template #fueraHorario>
-        <div class="status-pill">Próxima clase pronto</div>
-      </ng-template>
+    
     </div>
   </div>
 </div>

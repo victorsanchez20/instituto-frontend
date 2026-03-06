@@ -29,8 +29,10 @@ export class aulaComponent implements OnInit {
     id_profesor: '',
     fecha_inicio: '',
     fecha_fin: '',
-    meet_link: '',
-    classroom_link: ''
+    linkMeet: '',
+    linkClassroom: '',
+    hora_inicio: '',
+    hora_fin: ''
   };
 
   listaDiasDefault = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO'];
@@ -38,6 +40,10 @@ export class aulaComponent implements OnInit {
   profesores: Profesor[] = [];
   cursos: Curso[] = [];
   aulas: any[] = [];
+
+  /** variables de edicion de aula */
+  modoEdicion: boolean = false;
+  aulaEditandoId: number | null = null;
 
   onDiaChange(dia: string, event: any) {
     if (event.target.checked) {
@@ -61,36 +67,42 @@ export class aulaComponent implements OnInit {
               public router: Router) {}
 
   crearAula() {
-    const cursoSeleccionado = this.cursos.find(c => c.id == Number(this.aulaForm.id_curso));
-    const profesorSeleccionado = this.profesores.find(p => p.id == Number(this.aulaForm.id_profesor));
+    if (this.modoEdicion) {
+      this.guardarCambios();
+    } else {
+      const cursoSeleccionado = this.cursos.find(c => c.id == Number(this.aulaForm.id_curso));
+      const profesorSeleccionado = this.profesores.find(p => p.id == Number(this.aulaForm.id_profesor));
 
-    if (!cursoSeleccionado || !profesorSeleccionado || this.aulaForm.dias.length === 0) {
-      alert('Por favor seleccione curso, profesor y al menos un día');
-      return;
+      if (!cursoSeleccionado || !profesorSeleccionado || this.aulaForm.dias.length === 0) {
+        alert('Por favor seleccione curso, profesor y al menos un día');
+        return;
+      }
+
+      const dataEnviar: Aula = {
+        codigo: this.aulaForm.codigo,
+        duracion: this.aulaForm.duracion || "1 hora",
+        dias: this.aulaForm.dias,
+        cantidad: this.aulaForm.cantidad,
+        fecha_inicio: this.aulaForm.fecha_inicio,
+        fecha_fin: this.aulaForm.fecha_fin,
+        linkMeet: this.aulaForm.linkMeet,
+        linkClassroom: this.aulaForm.linkClassroom,
+        id_curso: cursoSeleccionado,
+        id_profesor: profesorSeleccionado,
+        hora_inicio: this.aulaForm.hora_inicio,
+        hora_fin: this.aulaForm.hora_fin
+      };
+
+      this.aulaService.crearAula(dataEnviar).subscribe({
+        next: (res) => {
+          alert('¡Aula guardada con éxito!');
+          this.resetearFormulario();
+          this.listarAulas();
+          this.vista = 'ver';
+        },
+        error: (err) => console.error('Error al guardar:', err)
+      });
     }
-
-    const dataEnviar: Aula = {
-      codigo: this.aulaForm.codigo,
-      duracion: this.aulaForm.duracion || "1 hora",
-      dias: this.aulaForm.dias,
-      cantidad: this.aulaForm.cantidad,
-      fecha_inicio: this.aulaForm.fecha_inicio,
-      fecha_fin: this.aulaForm.fecha_fin,
-      meet_link: this.aulaForm.meet_link,
-      classroom_link: this.aulaForm.classroom_link,
-      id_curso: cursoSeleccionado,
-      id_profesor: profesorSeleccionado
-    };
-
-    this.aulaService.crearAula(dataEnviar).subscribe({
-      next: (res) => {
-        alert('¡Aula guardada con éxito!');
-        this.resetearFormulario();
-        this.listarAulas();
-        this.vista = 'ver';
-      },
-      error: (err) => console.error('Error al guardar:', err)
-    });
   }
 
   resetearFormulario() {
@@ -103,8 +115,10 @@ export class aulaComponent implements OnInit {
       id_profesor: "",
       fecha_inicio: '',
       fecha_fin: '',
-      meet_link: '',
-      classroom_link: ''
+      linkMeet: '',
+      linkClassroom: '',
+      hora_inicio: '',
+      hora_fin: ''
     };
   }
 
@@ -157,6 +171,73 @@ export class aulaComponent implements OnInit {
     })
   }
 
+  editarAula(id: number) {
+    const aula = this.aulas.find(a => a.id === id);
+    if (!aula) return;
+
+    this.aulaEditandoId = id;
+    this.modoEdicion = true;
+
+    this.aulaForm = {
+      codigo: aula.codigo,
+      cantidad: aula.cantidad,
+      duracion: aula.duracion,
+      dias: [...aula.dias],
+      id_curso: aula.id_curso?.id?.toString() || '',
+      id_profesor: aula.id_profesor?.id?.toString() || '',
+      fecha_inicio: aula.fecha_inicio,
+      fecha_fin: aula.fecha_fin,
+      linkMeet: aula.meet_link || '',
+      linkClassroom: aula.classroom_link || '',
+      hora_inicio: aula.hora_inicio,
+      hora_fin: aula.hora_fin
+    };
+
+    this.vista = 'crear';
+  }
+
+  guardarCambios() {
+    const cursoSeleccionado = this.cursos.find(c => c.id == Number(this.aulaForm.id_curso));
+    const profesorSeleccionado = this.profesores.find(p => p.id == Number(this.aulaForm.id_profesor));
+
+    if(!cursoSeleccionado || !profesorSeleccionado || this.aulaForm.dias.length === 0) {
+      alert('Por favor complete todos los campos');
+      return;
+    }
+    const dataEnviar: Aula = {
+      codigo: this.aulaForm.codigo,
+      duracion: this.aulaForm.duracion,
+      dias: this.aulaForm.dias,
+      cantidad: this.aulaForm.cantidad,
+      fecha_inicio: this.aulaForm.fecha_inicio,
+      fecha_fin: this.aulaForm.fecha_fin,
+      linkMeet: this.aulaForm.linkMeet,
+      linkClassroom: this.aulaForm.linkClassroom,
+      id_curso: cursoSeleccionado!,
+      id_profesor: profesorSeleccionado!,
+      hora_inicio: this.aulaForm.hora_inicio,
+      hora_fin: this.aulaForm.hora_fin
+    };
+
+    this.aulaService.actualizarAula(this.aulaEditandoId!, dataEnviar).subscribe({
+      next: () => {
+        alert('¡Aula actualizada con éxito!');
+        this.modoEdicion = false;
+        this.aulaEditandoId = null;
+        this.resetearFormulario();
+        this.listarAulas();
+        this.vista = 'ver';
+      },
+      error: (err) => console.error('Error al actualizar:', err)
+    });
+  }
+
+  cancelarEdicion() {
+    this.modoEdicion = false;
+    this.aulaEditandoId = null;
+    this.resetearFormulario();
+    this.vista = 'ver';
+  }
 
   verIntegrantes(id: number) {
     this.router.navigate(['/portal/aula/', id]);

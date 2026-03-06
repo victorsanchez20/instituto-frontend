@@ -8,7 +8,6 @@
 }
 
 .info-container {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
   font-family: 'Inter', system-ui, sans-serif;
@@ -469,6 +468,11 @@
 }
 
 .progress-fill.critical { background: var(--danger); }
+
+.col-capacity {
+  min-width: 120px;
+  width: 140px;
+}
 
 /* Profesor */
 .col-professor { display: flex; align-items: center; gap: 12px; }

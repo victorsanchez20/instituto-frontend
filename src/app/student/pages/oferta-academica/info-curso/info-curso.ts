@@ -7,6 +7,7 @@ import { Aula } from '../../../../models/aula';
 import { Inscripcion } from '../../../../models/inscripcion';
 import { InscripcionService } from '../../../../services/inscripcion.service';
 import { InscripcionCreate } from '../../../../models/inscripcion-create';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-info-curso',
@@ -19,6 +20,8 @@ export class InfoCurso implements OnInit {
   curso: Curso | any = {};
   aulas: any[] = [];
   loading: boolean = true;
+
+  apiUrl: String = environment.api
 
   inscripcionesAlumno: any[] = [];
   aulasInscritasIds: number[] = [];
@@ -93,7 +96,7 @@ export class InfoCurso implements OnInit {
 
   cargarDetalleCurso(id: string) {
     this.loading = true;
-    this.http.get<Curso>(`http://localhost:8080/api/instituto/curso/${id}`)
+    this.http.get<Curso>(`${environment.api}/api/instituto/curso/${id}`)
       .subscribe({
         next: (data) => {
           console.log('Datos recibidos del servidor:', data); // REVISA ESTO EN F12
@@ -128,7 +131,7 @@ export class InfoCurso implements OnInit {
 
 
   cargarAulasCursos(id: string) {
-    this.http.get<any[]>(`http://localhost:8080/api/instituto/curso/${id}/aulas`)
+    this.http.get<any[]>(`${environment.api}/api/instituto/curso/${id}/aulas`)
       .subscribe({
         next: (data) => {
 

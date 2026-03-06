@@ -8,7 +8,6 @@
 }
 
 .mis-cursos-container {
-  max-width: 1200px;
   margin: 30px auto;
   padding: 0 20px;
   font-family: 'Segoe UI', Roboto, sans-serif;
@@ -22,13 +21,14 @@
   padding-left: 15px;
 }
 
+
 /* Contenedor de la Fila */
 .curso-row {
   display: flex;
   align-items: center;
   background: #ffffff;
   border-radius: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 16pxs;
   padding: 16px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.04);
   border: 1px solid #edf2f7;

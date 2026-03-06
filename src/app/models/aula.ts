@@ -15,6 +15,9 @@ export interface Aula {
     id_curso: Curso;
     id_profesor: Profesor;
 
-    meet_link: String;
-    classroom_link: String;
+    linkMeet: String;
+    linkClassroom: String;
+
+    hora_inicio: String;
+    hora_fin: String;
 }
