@@ -27,4 +27,8 @@ export class EstudianteService {
   readAlumno() {
     return this.http.get(this.apiUrl);
   }
+
+  totalAlumno(): Observable<number>{
+    return this.http.get<number>(`${this.apiUrl}/total`);
+  }
 }

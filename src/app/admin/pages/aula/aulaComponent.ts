@@ -7,7 +7,7 @@ import { Curso } from '../../../models/curso';
 import { CursoService } from '../../../services/curso.service';
 import { AulaService } from '../../../services/aula.service';
 import { Aula } from '../../../models/aula';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-aula',
@@ -55,6 +55,14 @@ export class aulaComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.vista = params['vista'] || 'crear';
+
+      if (this.vista === 'ver') {
+            this.listarAulas(); // el método que ya tenés para traer las aulas
+        }
+    });
+
     this.listarProfesor();
     this.listarCurso();
     this.listarAulas();
@@ -64,7 +72,11 @@ export class aulaComponent implements OnInit {
               private cursoService: CursoService,
               private aulaService: AulaService,
               private cdr: ChangeDetectorRef,
-              public router: Router) {}
+              private route: ActivatedRoute,
+              public router: Router) {
+
+
+              }
 
   crearAula() {
     if (this.modoEdicion) {
@@ -166,7 +178,10 @@ export class aulaComponent implements OnInit {
 
   listarAulas() {
     this.aulaService.listarAulas().subscribe({
-      next: (data) => this.aulas = data,
+      next: (data) => {
+        this.aulas = data;
+        this.cdr.detectChanges();
+      },
       error: (errr) => console.error(errr)
     })
   }

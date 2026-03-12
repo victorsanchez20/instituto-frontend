@@ -31,7 +31,6 @@ export class Aside {
       // Opcional: imprimir en consola para debug
       console.log('Sesión finalizada correctamente');
     }
-    
   }
 
   ngOnChanges() {

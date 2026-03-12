@@ -1,140 +1,461 @@
 * {
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
 }
+
+/* =========================== 
+   CONTENEDOR PRINCIPAL
+   =========================== */
 
 .login-container {
   height: 100vh;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: linear-gradient(135deg, #003a70 0%, #004a8f 100%);
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  position: relative;
 }
 
-.login-card {
-  background: #fff;
-  width: 550px;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-}
-
-.login-card h2 {
-  text-align: center;
-  margin-bottom: 0.3rem;
-}
-
-.subtitle {
-  text-align: center;
-  color: #666;
-  margin-bottom: 1.5rem;
-}
-
-.input-group {
-  margin-bottom: 1rem;
-}
-
-.input-group label {
-  display: block;
-  font-size: 0.9rem;
-  margin-bottom: 0.3rem;
-  color: #333;
-}
-
-.input-group input {
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
   width: 100%;
-  padding: 0.6rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  outline: none;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="50" r="40" fill="rgba(255,255,255,0.03)"/><circle cx="80" cy="50" r="40" fill="rgba(255,255,255,0.03)"/></svg>');
+  pointer-events: none;
+  animation: float 6s ease-in-out infinite;
 }
 
-.input-group input:focus {
-  border-color: #2a5298;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
 }
 
-button {
-  width: 100%;
-  padding: 0.7rem;
-  border: none;
-  border-radius: 6px;
-  background: #2a5298;
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 0.5rem;
+/* =========================== 
+   WRAPPER PRINCIPAL
+   =========================== */
+
+.login-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 90%;
+  max-width: 1000px;
+  min-height: 600px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideInUp 0.6s ease-out;
+  z-index: 1;
 }
 
-button:hover {
-  background: #1e3c72;
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.forgot {
-  display: block;
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  color: #2a5298;
-  text-decoration: none;
-}
+/* =========================== 
+   SECCIÓN BRANDING (IZQUIERDA)
+   =========================== */
 
-.forgot:hover {
-  text-decoration: underline;
-}
-
-/* ... (tu código anterior se mantiene, añadimos esto) ... */
-
-.tabs {
+.login-branding {
+  background: linear-gradient(135deg, #003a70 0%, #004a8f 100%);
+  color: white;
+  padding: 3rem 2rem;
   display: flex;
-  margin-bottom: 1.5rem;
-  border-bottom: 2px solid #eee;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.tabs button {
-  flex: 1;
-  background: none;
-  color: #666;
+.login-branding::after {
+  content: '';
+  position: absolute;
+  bottom: -50%;
+  right: -50%;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.branding-content {
+  position: relative;
+  z-index: 1;
+  animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.logo-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.branding-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.branding-subtitle {
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+
+.feature-item {
+  font-size: 0.95rem;
+  opacity: 0.95;
+  font-weight: 400;
+  padding-left: 0.5rem;
+}
+
+/* =========================== 
+   SECCIÓN FORMULARIO (DERECHA)
+   =========================== */
+
+.login-form-section {
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.6s ease-out;
+  position: relative;
+  background: #fafbfc;
+  justify-content: space-between;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.form-header {
+  margin-bottom: 2rem;
+}
+
+.form-header h2 {
+  font-size: 2rem;
+  color: #1a202c;
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+}
+
+.form-subtitle {
+  color: #718096;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+/* =========================== 
+   TABS MODERNOS
+   =========================== */
+
+.modern-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  background: #e2e8f0;
+  padding: 0.35rem;
+  border-radius: 10px;
+}
+
+.tab-btn {
+  background: transparent;
   border: none;
-  border-radius: 0;
-  padding: 0.8rem;
-  margin: 0;
-  font-weight: bold;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  font-weight: 600;
+  color: #718096;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
 }
 
-.tabs button:hover {
-  background: #f5f5f5;
-  color: #2a5298;
+.tab-icon {
+  font-size: 1.1rem;
 }
 
-.tabs button.active {
-  color: #2a5298;
-  border-bottom: 3px solid #2a5298;
+.tab-btn:hover {
+  color: #c5a059;
 }
 
-.btn-ingresar {
+.tab-btn.active {
+  background: white;
+  color: #003a70;
+  box-shadow: 0 2px 8px rgba(0, 58, 112, 0.15);
+}
+
+/* =========================== 
+   FORMULARIO
+   =========================== */
+
+.modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.label-icon {
+  font-size: 1.1rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 0;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #1a202c;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.form-group input::placeholder {
+  color: #a0aec0;
+  font-weight: 400;
+}
+
+.form-group input:focus {
+  outline: none;
+  background: transparent;
+}
+
+.form-group input:focus + .input-underline {
+  transform: scaleX(1);
+  background: linear-gradient(90deg, #003a70, #c5a059);
+}
+
+.input-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #003a70, #c5a059);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+/* =========================== 
+   BOTÓN SUBMIT
+   =========================== */
+
+.btn-submit {
+  background: linear-gradient(135deg, #1965ac 0%, #1a46c0 100%);
+  color: white;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
   margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.signup-footer {
+.btn-submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(197, 160, 89, 0.2);
+  transition: left 0.3s ease;
+}
+
+.btn-submit:hover::before {
+  left: 100%;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 58, 112, 0.3);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+.btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.btn-submit:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+/* =========================== 
+   LINK "OLVIDASTE CONTRASEÑA"
+   =========================== */
+
+.forgot-password {
+  text-align: center;
+  color: #003a70;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.forgot-password:hover {
+  color: #c5a059;
+  text-decoration: underline;
+}
+
+/* =========================== 
+   FOOTER SIGNUP
+   =========================== */
+
+.footer-signup {
   margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
   text-align: center;
   font-size: 0.9rem;
 }
 
-.signup-footer p {
-  color: #666;
+.footer-signup p {
+  color: #718096;
 }
 
-.signup-footer a {
-  color: #2a5298;
+.signup-link {
+  color: #003a70;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.signup-footer a:hover {
-  text-decoration: underline;
+.signup-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #c5a059;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.signup-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* =========================== 
+   RESPONSIVE
+   =========================== */
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-width: 450px;
+  }
+
+  .login-branding {
+    padding: 2rem;
+    min-height: 250px;
+  }
+
+  .branding-content h1 {
+    font-size: 2rem;
+  }
+
+  .logo-icon {
+    font-size: 3rem;
+  }
+
+  .login-form-section {
+    padding: 2rem;
+  }
+
+  .form-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .modern-tabs {
+    grid-template-columns: 1fr;
+  }
 }

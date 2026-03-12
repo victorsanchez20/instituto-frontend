@@ -1,0 +1,117 @@
+<div class="dashboard-wrapper">
+
+  <!-- HEADER -->
+  <div class="dash-header">
+    <div class="header-left">
+      <h1 class="greeting">Buenos días, Admin 👋</h1>
+      <p class="subgreeting">Resumen general del instituto · {{ today }}</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-secondary">📥 Exportar</button> 
+    </div>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div class="stats-grid">
+    <div class="stat-card" *ngFor="let stat of stats" [style.--accent]="stat.color" [style.--bg]="stat.bg">
+      <div class="stat-top">
+        <div class="stat-icon">{{ stat.icon }}</div>
+        <span class="stat-badge" [ngClass]="stat.trend">
+          {{ stat.trend === 'up' ? '▲' : '⚠' }} {{ stat.sub }}
+        </span>
+      </div>
+      <div class="stat-value">{{ stat.value }}</div>
+      <div class="stat-label">{{ stat.label }}</div>
+    </div>
+  </div>
+
+  <!-- MIDDLE ROW -->
+  <div class="middle-row">
+
+    <!-- Accesos Rápidos -->
+    <div class="card">
+      <h2 class="card-title">⚡ Accesos Rápidos</h2>
+      <div class="accesos-grid">
+        <button
+          class="acceso-btn"
+          *ngFor="let a of accesosRapidos"
+          [style.--hover-color]="a.color"
+          (click)="onAccesoRapido(a.route, a.vista)"
+        >
+          <span class="acceso-icon">{{ a.icon }}</span>
+          <span class="acceso-label">{{ a.label }}</span>
+          <span class="acceso-desc">{{ a.desc }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Distribución Cursos -->
+    <div class="card">
+      <h2 class="card-title">📊 Distribución de Cursos</h2>
+      <div class="barras">
+        <div class="barra-item" *ngFor="let d of distribucion">
+          <div class="barra-header">
+            <span class="barra-nombre">{{ d.nombre }}</span>
+            <span class="barra-pct" [style.color]="d.color">{{ d.total }}</span>
+          </div>
+          <div class="barra-track">
+            <div class="barra-fill" [style.width.%]="d.total" [style.background]="d.color"></div>
+          </div>
+        </div>
+      </div>
+      <div class="metricas-row">
+        <div class="metrica">
+          <span class="metrica-val">78%</span>
+          <span class="metrica-lbl">Ocupación</span>
+        </div>
+        <div class="metrica-sep"></div>
+        <div class="metrica">
+          <span class="metrica-val" style="color: #10B981">94%</span>
+          <span class="metrica-lbl">Retención</span>
+        </div>
+        <div class="metrica-sep"></div>
+        <div class="metrica">
+          <span class="metrica-val" style="color: #3B82F6">4.8</span>
+          <span class="metrica-lbl">Promedio</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TABLA ÚLTIMAS INSCRIPCIONES -->
+  <div class="card tabla-card">
+    <div class="tabla-header">
+      <h2 class="card-title">🕐 Últimas Inscripciones</h2>
+      <button class="btn-link" (click)="verTodos()">Ver todos →</button>
+    </div>
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Alumno</th>
+          <th>Curso</th>
+          <th>Aula</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of ultimasInscripciones; let i = index">
+          <td>
+            <div class="alumno-cell">
+              <div class="alumno-avatar" [style.--idx]="i">{{ a.nombre[0] }}</div>
+              <span class="alumno-nombre">{{ a.nombre }}</span>
+            </div>
+          </td>
+          <td class="td-curso">{{ a.curso }}</td>
+          <td><span class="badge-aula">{{ a.aula }}</span></td>
+          <td>
+            <span class="badge-estado" [ngClass]="a.estado.toLowerCase()">
+              ● {{ a.estado }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class AulaService {
  
-  private apiUrl = `${environment.api}/api/instituto/aula`
+  private readonly apiUrl = `${environment.api}/api/instituto/aula`
 
   constructor(private http: HttpClient) {}
 
@@ -18,10 +18,14 @@ export class AulaService {
   }
 
   listarAulas() {
-    return this.http.get<Aula[]>(`${this.apiUrl}`)
+    return this.http.get<Aula[]>(this.apiUrl);
   }
 
   actualizarAula(id: Number, aula: Aula): Observable<Aula> {
     return this.http.put<Aula>(`${this.apiUrl}/${id}`, aula)
+  }
+
+  totalAulas(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/total`);
   }
 }

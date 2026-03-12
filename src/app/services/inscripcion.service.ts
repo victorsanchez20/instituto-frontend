@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Inscripcion } from '../models/inscripcion';
 import { InscripcionCreate } from '../models/inscripcion-create';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +46,10 @@ export class InscripcionService {
     return this.http.put(`${this.apiUrl}/estado/${idInscripcion}`, 
       { estadoId: estadoId}
     );
+  }
+
+  obtenerUltimasInscripcionesPendientes(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/ultimas-inscripciones-pendientes`);
   }
 }
 

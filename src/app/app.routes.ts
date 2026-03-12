@@ -18,6 +18,7 @@ import { OfertaAcademica } from './student/pages/oferta-academica/oferta-academi
 import { InfoCurso } from './student/pages/oferta-academica/info-curso/info-curso';
 import { MisCursos } from './student/pages/mis-cursos/mis-cursos';
 import { AulaIntegrantes } from './admin/pages/aula/aula-integrantes/aula-integrantes';
+import { InicioAdmin } from './admin/pages/inicio-admin/inicio-admin';
 
 export const routes: Routes = [
     {
@@ -47,7 +48,7 @@ export const routes: Routes = [
         path: 'portal',
         component: AdminLayout,
         children: [
-            { path: '', component: Inicio },
+            { path: '', component: InicioAdmin },
             { path: 'aula', component: aulaComponent, },
             { path: 'aula/:id', component: AulaIntegrantes },
             { path: 'profesores', component: ProfesorComponent},

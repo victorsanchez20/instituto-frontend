@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Profesor } from '../models/profesor.';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +23,9 @@ export class ProfesorService {
 
   eliminarProfesor(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  totalProfesores(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/total`);
   }
 }
