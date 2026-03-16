@@ -1,9 +1,15 @@
 <header class="topbar">
   <div class="topbar-left">
+    <button class="hamburger" (click)="toggleMenu()" [class.open]="menuOpen$ | async">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
     <i class="fa-solid fa-user-graduate"></i>
     <div>
-      <h4>Juan Pérez</h4>
-      <span>Estudiante</span>
+      <h4>Admin</h4>
+      <span></span>
     </div>
   </div>
 

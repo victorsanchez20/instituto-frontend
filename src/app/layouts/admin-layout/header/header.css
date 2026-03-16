@@ -16,6 +16,39 @@
   gap: 12px;
 }
 
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Animación X al abrir */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(9.5px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-9.5px) rotate(-45deg);
+}
+
 .topbar-left i {
   font-size: 28px;
   color: #38bdf8;
@@ -47,4 +80,10 @@
 
 .logout-btn:hover {
   background: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
 }

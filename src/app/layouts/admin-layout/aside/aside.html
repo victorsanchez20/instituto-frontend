@@ -1,4 +1,4 @@
-<aside class="sidebar">
+<aside class="sidebar" [class.open]="menuOpen$ | async">
   <h3 class="sidebar-title">Academica</h3>
 
   <nav class="sidebar-nav">
@@ -9,6 +9,7 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       style="cursor: pointer;"
+      (click)="closeMenu()"
     >
       <i class="fa-solid fa-house"></i>
       <span>Inicio</span>
@@ -18,6 +19,7 @@
       routerLink="/portal/aula"
       routerLinkActive="active"
       style="cursor: pointer;"
+      (click)="closeMenu()"
     >
       <i class="fa-solid fa-plus"></i>
       <span>Crear aula</span>
@@ -27,6 +29,7 @@
       routerLink="/portal/alumnos"
       routerLinkActive="active"
       style="cursor: pointer;"
+      (click)="closeMenu()"
     >
       <i class="fa-solid fa-graduation-cap"></i>
       <span>Alumnos</span>
@@ -36,6 +39,7 @@
       routerLink="/portal/profesores"
       routerLinkActive="active"
       style="cursor: pointer;"
+      (click)="closeMenu()"
     >
       <i class="fa-solid fa-user-tie"></i>
       <span>Profesores</span>
@@ -45,6 +49,7 @@
       routerLink="/portal/cursos"
       routerLinkActive="active"
       style="cursor: pointer;"
+      (click)="closeMenu()"
     >
       <i class="fa-solid fa-user-tie"></i>
       <span>Cursos</span>
@@ -54,6 +59,7 @@
       routerLink="/portal/configuracion"
       routerLinkActive="active"
       style="cursor: pointer;"
+      (click)="closeMenu()"
     >
       <i class="fa-solid fa-gear"></i>
       <span>Configuración</span>
@@ -61,3 +67,5 @@
 
   </nav>
 </aside>
+
+<div class="sidebar-overlay" [class.open]="menuOpen$ | async" (click)="closeMenu()"></div>

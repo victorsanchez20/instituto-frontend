@@ -41,6 +41,7 @@
   height: 180px;
   object-fit: cover; /* Mantiene la proporción sin deformar */
   display: block;
+  cursor: pointer;
 }
 
 /* Contenido de texto */
@@ -49,6 +50,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  cursor: pointer;
 }
 
 .card-content h3 {

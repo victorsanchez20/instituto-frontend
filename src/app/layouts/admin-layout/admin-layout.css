@@ -8,8 +8,9 @@ app-header {
     top: 0;
     z-index: 100;
     height: 60px;
-}
+}   
 
+/* El layout se encarga de organizar el header, aside y content */
 .layout {
     display: flex;
     height: calc(100vh - 60px);
@@ -17,8 +18,17 @@ app-header {
     background: #F1F5F9;
 }
 
+/* El content se encarga de mostrar el contenido principal y hacer scroll si es necesario */
 .content {
     flex: 1;
     overflow-y: auto;
     padding: 1rem;
+}
+
+/* Responsive: en pantallas pequeñas, el content ocupa todo el ancho */
+@media (max-width: 768px) {
+    .content {
+        width: 100%;
+        overflow-y: auto;
+    }
 }

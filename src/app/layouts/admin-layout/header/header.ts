@@ -1,15 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MenuService } from '../../../services/menu.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header  {
+export class Header implements OnInit {
+  menuOpen$!: Observable<boolean>;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private menuService: MenuService) {}
+
+  ngOnInit() {
+    this.menuOpen$ = this.menuService.menuOpen$;
+  }
+
+  toggleMenu() {
+    this.menuService.toggleMenu();
+  }
 
   logout() {
     // 1. Preguntamos al usuario para evitar cierres accidentales

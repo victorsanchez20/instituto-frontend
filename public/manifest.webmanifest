@@ -1,0 +1,9 @@
+{
+  "name": "Academia",
+  "short_name": "Academia",
+  "theme_color": "#2563eb",
+  "background_color": "#020d1f",
+  "display": "standalone",
+  "start_url": "/", 
+  "icons": []
+}

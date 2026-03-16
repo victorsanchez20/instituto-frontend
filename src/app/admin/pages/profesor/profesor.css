@@ -279,3 +279,16 @@
 .btn-submit:active {
   transform: translateY(0);
 }
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.btn-icon:hover {
+  color: #2563eb;
+}

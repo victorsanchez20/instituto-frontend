@@ -13,8 +13,10 @@
   color: #fff;
   position: fixed;
   left: 0;
-  top: 0;
+  top: 60px;
   padding-top: 20px;
+  overflow-y: auto;
+  z-index: 99;
 }
 
 .sidebar-title {
@@ -54,4 +56,67 @@
 .sidebar-nav a.active {
   background: #2563eb;
   color: #fff;
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  :host {
+    display: block;
+    width: 0;
+    min-width: 0;
+    height: 0;
+    overflow: visible;
+  }
+
+  .sidebar {
+    width: 75%;
+    max-width: 300px;
+    height: calc(100vh - 60px);
+    position: fixed;
+    left: -100%;
+    top: 60px;
+    transition: left 0.3s ease;
+    z-index: 999;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 98;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .sidebar-overlay.open {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sidebar-nav {
+    margin-top: 20px;
+  }
+
+  .sidebar-nav a {
+    padding: 15px 20px;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .sidebar-nav a:last-of-type {
+    border-bottom: none;
+  }
 }

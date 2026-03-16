@@ -13,8 +13,6 @@ export interface StatCard {
   icon: string;
   color: string;
   bg: string;
-  sub: string;
-  trend: 'up' | 'warn' | 'down';
 }
 
 export interface AccesoRapido {
@@ -63,8 +61,6 @@ export class InicioAdmin implements OnInit {
       icon: '🏫',
       color: '#3B82F6',
       bg: '#EFF6FF',
-      sub: '+2 este mes',
-      trend: 'up',
     },
     {
       label: 'Alumnos',
@@ -72,8 +68,6 @@ export class InicioAdmin implements OnInit {
       icon: '🎓',
       color: '#10B981',
       bg: '#ECFDF5',
-      sub: '+24 este mes',
-      trend: 'up',
     },
     {
       label: 'Profesores',
@@ -81,8 +75,6 @@ export class InicioAdmin implements OnInit {
       icon: '👨‍🏫',
       color: '#8B5CF6',
       bg: '#F5F3FF',
-      sub: '3 pendientes',
-      trend: 'warn',
     },
     {
       label: 'Cursos Activos',
@@ -90,8 +82,6 @@ export class InicioAdmin implements OnInit {
       icon: '📚',
       color: '#F59E0B',
       bg: '#FFFBEB',
-      sub: '+1 esta semana',
-      trend: 'up',
     },
   ];
 
