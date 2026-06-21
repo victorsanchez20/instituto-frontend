@@ -16,6 +16,7 @@ export class ProfesorComponent implements OnInit {
 
   profesores: Profesor[] = [];
   busqueda: string = '';
+  cargando: boolean = false;
 
   profesor: Profesor = {
     nombre: '',
@@ -37,18 +38,21 @@ export class ProfesorComponent implements OnInit {
   ) {}
 
   crearProfesor() {
+    this.cargando = true;
     const nuevoProfesor: Profesor = this.profesor;
     this.profesorService.saveProfesor(nuevoProfesor).subscribe({
       next: () => {
-        alert('✔ Profesor registrado correctamente.');
+        this.cargando = false;
+        this.vista = 'ver';
+        this.resetFormulario();
+        this.cargarProfesores();
       },
       error: (err) => {
+        this.cargando = false;
         console.error(err);
         alert('Error al registrar profesor.')
       }
     })
-
-    this.vista = 'ver';
   }
 
   cargarProfesores() {
@@ -77,7 +81,6 @@ export class ProfesorComponent implements OnInit {
     if (confirm("¿Estas seguro de eliminar este profesor?")) {
       this.profesorService.eliminarProfesor(id).subscribe({
         next: () => {
-          alert('Profesor eliminado.')
           this.cargarProfesores();
         },
         error: (err) => {
@@ -87,6 +90,19 @@ export class ProfesorComponent implements OnInit {
       })
     }
     this.cdr.detectChanges();
+  }
+
+  private resetFormulario() {
+    this.profesor = {
+      nombre: '',
+      apellido: '',
+      docidentidad: '',
+      telefono: '',
+      especialidad: '',
+      email: '',
+      usuario: '',
+      password: ''
+    };
   }
 
 }

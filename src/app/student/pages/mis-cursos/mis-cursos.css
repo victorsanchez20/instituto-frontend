@@ -119,13 +119,31 @@
 }
 
 .btn-action {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
   text-align: center;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 0.85rem;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
   font-weight: 600;
-  transition: opacity 0.2s;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid transparent;
+  background: #e2e8f0;
+  color: #1f2937;
+  cursor: pointer;
+}
+
+.btn-action:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+.btn-action.cancel {
+  background: #dc2626;
+  color: #ffffff;
 }
 
 .btn-action.meet { background: #00832d; color: white; }

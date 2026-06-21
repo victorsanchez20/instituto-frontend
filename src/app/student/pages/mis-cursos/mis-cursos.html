@@ -40,7 +40,15 @@
         </div>
       </div>
     </div>
-    <div class="curso-actions">
+    <div class="curso-actions" *ngIf="ins.estado && ins.estado.nombre?.toLowerCase() === 'pendiente'">
+      <ng-container>
+        <button (click)="pagar(ins)" 
+                class="btn-action cancel">
+          Pagar Inscripción
+        </button>
+      </ng-container>
+    </div>
+    <div class="curso-actions" *ngIf="ins.estado && ins.estado.nombre === 'aprobado'">
       <ng-container>
         <a [href]="ins.aula.meetLink" target="_blank" class="btn-action meet">
           Meet
@@ -49,7 +57,6 @@
           Classroom
         </a>
       </ng-container>
-    
     </div>
   </div>
 </div>

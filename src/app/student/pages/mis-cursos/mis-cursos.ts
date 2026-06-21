@@ -4,6 +4,7 @@ import { InscripcionService } from '../../../services/inscripcion.service';
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Curso } from '../../../models/curso';
 import { environment } from '../../../../environments/environment';
+import { PagoService } from '../../../services/pago.service';
 
 @Component({
   selector: 'app-mis-cursos',
@@ -21,7 +22,9 @@ export class MisCursos implements OnInit {
   apiUrl: String = environment.api
   hoy = new Date();
 
-  constructor(private inscripcionService: InscripcionService) {}
+  constructor(private inscripcionService: InscripcionService,
+              private pagoService: PagoService
+  ) {}
 
   ngOnInit(): void {
 
@@ -70,5 +73,31 @@ export class MisCursos implements OnInit {
   // ✅ Clase disponible HOY
   claseDisponible(aula: any): boolean {
     return this.estaEnRango(aula) && this.esDiaDeClase(aula);
+  }
+
+  cancelarInscripcion(id: any) {
+    if (id == null) {
+      return;
+    }
+    this.cancelar(id);
+  }
+
+  pagar(ins: any) {
+    const pago = {
+      title: ins.aula.id_curso.nombre,
+      quantity: 1,
+      currencyId: "PEN",
+      unitPrice: 100.00
+    };
+
+    this.pagoService.crearPago(pago)
+      .subscribe({
+        next: res => {
+          window.location.href = res.url;
+        },
+        error: err => {
+          console.error(err);
+        }
+      })
   }
 }

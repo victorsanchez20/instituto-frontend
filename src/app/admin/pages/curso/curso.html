@@ -1,9 +1,17 @@
 <section class="curso-container">
+
   <form class="curso-form" (ngSubmit)="guardarCurso()" #cursoForm="ngForm">
-    <h2 class="form-title">Crear Nuevo Curso</h2>
-    
+
+    <header class="form-header">
+      <span class="form-eyebrow">Catálogo de cursos</span>
+      <h2 class="form-title">Crear nuevo curso</h2>
+      <p class="form-subtitle">Completa los datos y sube una imagen de portada</p>
+    </header>
+
     <div class="form-grid">
+
       <div class="form-left">
+
         <div class="form-group">
           <label for="nombre">Nombre del curso</label>
           <input
@@ -27,31 +35,37 @@
           ></textarea>
         </div>
 
-        <div class="form-group">
-          <label>Imagen del curso</label>
-          <div class="file-input-wrapper">
-            <input
-              type="file"
-              id="fileInput"
-              accept="image/*"
-              (change)="onFileSelected($event)"
-              hidden
-            />
-            <label for="fileInput" class="btn-secondary">Seleccionar Imagen</label>
-            <span class="file-name">{{ selectedFile?.name || 'No hay archivo' }}</span>
-          </div>
-        </div>
       </div>
 
       <div class="form-right">
-        <div class="preview-box" [class.has-image]="previewImage">
-          <img *ngIf="previewImage" [src]="previewImage" alt="Preview">
-          <div *ngIf="!previewImage" class="no-image">
-            <span class="icon">🖼️</span>
-            <p>Vista previa</p>
+
+        <label class="dropzone" for="fileInput" [class.has-image]="previewImage">
+
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            hidden
+          />
+
+          <img *ngIf="previewImage" [src]="previewImage" alt="Preview" class="dropzone-img">
+
+          <div class="dropzone-empty" *ngIf="!previewImage">
+            <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p class="dropzone-text">Sube la imagen del curso</p>
+            <span class="dropzone-hint">PNG o JPG</span>
           </div>
-        </div>
+
+          <span class="dropzone-filename" *ngIf="selectedFile">{{ selectedFile.name }}</span>
+
+        </label>
+
       </div>
+
     </div>
 
     <div class="form-actions">
@@ -62,20 +76,31 @@
         Guardar curso
       </button>
     </div>
+
   </form>
 
-  <hr class="divider">
+  <div class="section-divider">
+    <span>Cursos publicados</span>
+  </div>
 
   <div class="curso-list">
-    <div class="curso-card" *ngFor="let c of cursos">
+    <article class="curso-card" *ngFor="let c of cursos">
+
       <div class="card-image">
         <img [src]="apiUrl + c.imagen" alt="curso">
-        <button class="btn-delete" (click)="eliminar(c.id)" title="Eliminar curso">✕</button>
+        <button class="btn-delete" (click)="eliminar(c.id)" title="Eliminar curso">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/>
+          </svg>
+        </button>
       </div>
+
       <div class="card-body">
         <h3>{{ c.nombre }}</h3>
         <p>{{ c.descripcion }}</p>
       </div>
-    </div>
+
+    </article>
   </div>
+
 </section>

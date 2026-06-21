@@ -1,104 +1,173 @@
-<div class="page-content">
+<section class="profesor-page">
 
-  <div class="tabs-wrapper">
-    <button class="tab-item" [class.active]="vista === 'crear'" (click)="vista = 'crear'">
-      <i class="fas fa-user-plus"></i>
-      <span>Nuevo Registro</span>
-    </button>
-    <button class="tab-item" [class.active]="vista === 'ver'" (click)="vista = 'ver'">
-      <i class="fas fa-list-ul"></i>
-      <span>Listado Docente</span>
-    </button>
-  </div>
-
-  <div *ngIf="vista === 'crear'" class="admin-card animate-fade-in">
-    <div class="card-header">
-      <h2>Registrar Nuevo Profesor</h2>
-      <p>Complete los datos. La foto se almacenará de forma segura en nuestro servidor.</p>
+  <header class="page-header">
+    <div>
+      <span class="header-eyebrow">Gestión docente</span>
+      <h1 class="header-title">Profesores</h1>
+      <p class="header-subtitle">Administra el registro y la información del personal académico.</p>
     </div>
-    <form (ngSubmit)="crearProfesor()" class="form-grid">
-      <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" [(ngModel)]="profesor.nombre" name="nombre" required>
-      </div>
-      <div class="form-group">
-        <label for="apellido">Apellido</label>
-        <input type="text" id="apellido" [(ngModel)]="profesor.apellido" name="apellido" required>
-      </div>
-      <div class="form-group">
-        <label for="doc">Documento de identidad</label>
-        <input type="text" id="doc" [(ngModel)]="profesor.docidentidad" name="docidentidad" required maxlength="12">
-      </div>
-      <div class="form-group">
-        <label for="tel">Número de Celular</label>
-        <input type="tel" id="tel" [(ngModel)]="profesor.telefono" name="telefono" required maxlength="9">
-      </div>
-      <div class="form-group">
-        <label for="esp">Especialidad</label>
-        <input type="text" id="esp" [(ngModel)]="profesor.especialidad" name="especialidad">
-      </div>
-      <div class="form-group">
-        <label for="email">Correo Electrónico</label>
-        <input type="email" id="email" [(ngModel)]="profesor.email" name="correo">
-      </div>
-      <div class="form-group">
-        <label for="user">Usuario de Sistema</label>
-        <input type="text" id="user" [(ngModel)]="profesor.usuario" name="usuario">
-      </div>
-      <div class="form-group">
-        <label for="pass">Contraseña</label>
-        <input type="password" id="pass" [(ngModel)]="profesor.password" name="password">
+    <div class="header-actions">
+      <button class="btn-outline" (click)="vista = 'crear'" [class.active]="vista === 'crear'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+        </svg>
+        Nuevo registro
+      </button>
+      <button class="btn-outline" (click)="vista = 'ver'" [class.active]="vista === 'ver'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/>
+        </svg>
+        Listado docente
+      </button>
+    </div>
+  </header>
+
+  <div *ngIf="vista === 'crear'" class="card animate-in">
+    <form (ngSubmit)="crearProfesor()" class="profesor-form">
+      <div class="card-header">
+        <h2>Registrar nuevo profesor</h2>
+        <p>Completa los datos del docente. Todos los campos marcados son obligatorios.</p>
       </div>
 
-      <div class="full-width action-container">
-        <button type="submit" class="btn-submit" (click)="crearProfesor()"> 
-          <i class="fas fa-save"></i> 
-          <span>Guardar y Registrar Profesor</span>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="nombre">Nombre <span class="required">*</span></label>
+          <input type="text" id="nombre" [(ngModel)]="profesor.nombre" name="nombre" required placeholder="Ej: Carlos">
+        </div>
+        <div class="form-group">
+          <label for="apellido">Apellido <span class="required">*</span></label>
+          <input type="text" id="apellido" [(ngModel)]="profesor.apellido" name="apellido" required placeholder="Ej: Mendoza">
+        </div>
+        <div class="form-group">
+          <label for="doc">Documento de identidad <span class="required">*</span></label>
+          <input type="text" id="doc" [(ngModel)]="profesor.docidentidad" name="docidentidad" required maxlength="12" placeholder="Ej: 12345678">
+        </div>
+        <div class="form-group">
+          <label for="tel">Número de celular <span class="required">*</span></label>
+          <input type="tel" id="tel" [(ngModel)]="profesor.telefono" name="telefono" required maxlength="9" placeholder="Ej: 987654321">
+        </div>
+        <div class="form-group">
+          <label for="esp">Especialidad</label>
+          <input type="text" id="esp" [(ngModel)]="profesor.especialidad" name="especialidad" placeholder="Ej: Matemáticas">
+        </div>
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" [(ngModel)]="profesor.email" name="correo" placeholder="Ej: carlos@instituto.edu">
+        </div>
+        <div class="form-group">
+          <label for="user">Usuario de sistema</label>
+          <input type="text" id="user" [(ngModel)]="profesor.usuario" name="usuario" placeholder="Ej: cmendoza">
+        </div>
+        <div class="form-group">
+          <label for="pass">Contraseña</label>
+          <input type="password" id="pass" [(ngModel)]="profesor.password" name="password" placeholder="••••••••">
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="button" class="btn-secondary" (click)="vista = 'ver'">Cancelar</button>
+        <button type="submit" class="btn-primary" [disabled]="cargando">
+          <svg *ngIf="cargando" class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10" stroke-dasharray="31.4 31.4" stroke-linecap="round"/>
+          </svg>
+          <svg *ngIf="!cargando" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke-linecap="round"/>
+            <path d="M17 21v-8H7v8M7 3v5h8" stroke-linecap="round"/>
+          </svg>
+          {{ cargando ? 'Guardando…' : 'Guardar y registrar profesor' }}
         </button>
       </div>
     </form>
   </div>
 
-  <div *ngIf="vista === 'ver'" class="admin-card animate-fade-in">
-    <div class="header-table">
-      <div>
-        <h2>Listado de Profesores</h2>
-        <p>Gestión y búsqueda de personal docente activo.</p>
-      </div>
-      <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="Buscar por nombre o área..." [(ngModel)]="busqueda">
+  <div *ngIf="vista === 'ver'" class="card animate-in">
+    <div class="card-header">
+      <div class="card-header-row">
+        <div>
+          <h2>Listado de profesores</h2>
+          <p>{{ profesoresFiltrados().length }} docente{{ profesoresFiltrados().length !== 1 ? 's' : '' }} registrado{{ profesoresFiltrados().length !== 1 ? 's' : '' }}.</p>
+        </div>
+        <div class="search-wrapper">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35" stroke-linecap="round"/>
+          </svg>
+          <input type="text" class="search-input" placeholder="Buscar por nombre…" [(ngModel)]="busqueda">
+        </div>
       </div>
     </div>
 
     <div class="table-responsive">
-      <table class="modern-table">
+      <table class="profesor-table" *ngIf="profesoresFiltrados().length > 0; else emptyState">
         <thead>
           <tr>
-            <th>Nombre y Apellido</th>
+            <th>Docente</th>
             <th>Especialidad</th>
             <th>Contacto</th>
             <th>Estado</th>
-            <th>Acciones</th>
+            <th class="th-actions">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of profesores">
-            <td>
-              <div class="user-info">
-                <span>{{ p.nombre }} {{ p.apellido }}</span>
+          <tr *ngFor="let p of profesoresFiltrados()">
+            <td data-label="Docente">
+              <div class="user-cell">
+                <span class="user-avatar">{{ p.nombre[0] }}{{ p.apellido[0] }}</span>
+                <div>
+                  <span class="user-name">{{ p.nombre }} {{ p.apellido }}</span>
+                  <span class="user-id">{{ p.docidentidad }}</span>
+                </div>
               </div>
             </td>
-            <td><span class="badge-pill">{{ p.especialidad }}</span></td>
-            <td><span class="text-muted">{{ p.email }}</span></td>
-            <td><span class="status-dot">Activo</span></td>
-            <td>
-              <button class="btn-icon"><i class="fas fa-edit"></i></button>
-              <button class="btn-icon" (click)="eliminarProfesor(p.id)" class="btn-icon delete"><i class="fas fa-trash"></i></button>
+            <td data-label="Especialidad"><span class="badge">{{ p.especialidad || '—' }}</span></td>
+            <td data-label="Contacto">
+              <div class="contact-cell">
+                <span class="contact-email">{{ p.email || '—' }}</span>
+                <span class="contact-phone">{{ p.telefono || '—' }}</span>
+              </div>
+            </td>
+            <td data-label="Estado"><span class="status-badge status-active">Activo</span></td>
+            <td data-label="Acciones">
+              <div class="action-btns">
+                <button class="btn-icon" title="Editar">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke-linecap="round"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                <button class="btn-icon btn-icon--danger" (click)="eliminarProfesor(p.id)" title="Eliminar">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6" stroke-linecap="round"/>
+                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" stroke-linecap="round"/>
+                    <path d="M10 3h4a1 1 0 0 1 1 1v2H9V4a1 1 0 0 1 1-1z" stroke-linecap="round"/>
+                    <line x1="10" y1="11" x2="10" y2="17" stroke-linecap="round"/>
+                    <line x1="14" y1="11" x2="14" y2="17" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <svg class="empty-icon" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <h3>No hay docentes registrados</h3>
+        <p>Comienza agregando un nuevo profesor desde el formulario de registro.</p>
+        <button class="btn-primary" (click)="vista = 'crear'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+          </svg>
+          Registrar profesor
+        </button>
+      </div>
+    </ng-template>
   </div>
-</div>
+
+</section>

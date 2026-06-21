@@ -1,114 +1,192 @@
 <div class="page-content">
-
-  <div class="tabs-wrapper">
-    <button class="tab-item" [class.active]="vista === 'crear'" (click)="vista = 'crear'">
-      <i class="fas fa-plus-circle"></i>
-      <span>Nueva Aula</span>
-    </button>
-    <button class="tab-item" [class.active]="vista === 'ver'" (click)="vista = 'ver'">
-      <i class="fas fa-list-ul"></i>
-      <span>Listado de Aulas</span>
-    </button>
-  </div>
-
-  <div *ngIf="vista === 'crear'" class="admin-card animate-fade-in">
-    <div class="card-header">
-      <h2>{{ modoEdicion ? 'Editar Aula' : 'Configurar Nueva Aula' }}</h2>
-      <p>{{ modoEdicion ? 'Modifique los datos del aula seleccionada.' : 'Asigne los recursos, profesores y horarios para este espacio académico.' }}</p>
+  <!-- Header de página -->
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Gestión de Aulas</h1>
+      <p class="page-subtitle">Crea, edita y administra los espacios académicos de tu institución.</p>
     </div>
 
-    <form (ngSubmit)="crearAula()" #aulaFormulario="ngForm" class="form-grid">
-      <div class="form-group">
-        <label for="codigo">Código del Aula</label>
-        <input type="text" id="codigo" [(ngModel)]="aulaForm.codigo" name="codigo" placeholder="Ej: L-101" required>
-      </div>
+    <!-- Segmented tabs -->
+    <div class="segmented" role="tablist">
+      <button class="seg-item" [class.active]="vista === 'crear'" (click)="vista = 'crear'" role="tab">
+        <i class="fas fa-plus-circle"></i>
+        <span>Nueva Aula</span>
+      </button>
+      <button class="seg-item" [class.active]="vista === 'ver'" (click)="vista = 'ver'" role="tab">
+        <i class="fas fa-list-ul"></i>
+        <span>Listado</span>
+      </button>
+    </div>
+  </header>
 
-      <div class="form-group">
-        <label for="capacidad">Capacidad de Alumnos</label>
-        <input type="number" id="capacidad" [(ngModel)]="aulaForm.cantidad" name="capacidad" required>
+  <!-- ============== CREAR / EDITAR ============== -->
+  <section *ngIf="vista === 'crear'" class="admin-card animate-fade-in">
+    <div class="card-header">
+      <div class="card-header-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+      <div>
+        <h2>{{ modoEdicion ? 'Editar Aula' : 'Configurar Nueva Aula' }}</h2>
+        <p>{{ modoEdicion ? 'Modifique los datos del aula seleccionada.' : 'Asigne recursos, profesores y horarios para este espacio académico.' }}</p>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label for="curso">Curso Relacionado</label>
-        <select id="curso" [(ngModel)]="aulaForm.id_curso" name="id_curso" required class="modern-select">
-          <option value="" disabled selected>Seleccione un curso...</option>
-          <option *ngFor="let c of cursos" [value]="c.id">{{c.nombre}}</option>
-        </select>
-      </div>
+    <form (ngSubmit)="crearAula()" #aulaFormulario="ngForm" class="form-body">
 
-      <div class="form-group">
-        <label for="profe">Profesor Asignado</label>
-        <select id="profe" [(ngModel)]="aulaForm.id_profesor" name="id_profesor" required class="modern-select">
-          <option value="" disabled selected>Seleccione un docente...</option>
-          <option *ngFor="let p of profesores" [value]="p.id">{{ p.nombre }} {{ p.apellido }}</option>
-        </select>
-      </div>
+      <!-- Sección 1: Identificación -->
+      <div class="form-section">
+        <div class="section-label">
+          <span class="step">1</span>
+          <h3>Identificación</h3>
+        </div>
 
-      <div class="form-group full-width">
-        <label>Días de Clase Seleccionados</label>
-        <div class="days-selector">
-          <label *ngFor="let dia of listaDiasDefault" class="day-chip">
-            <input type="checkbox" [checked]="aulaForm.dias.includes(dia)" (change)="onDiaChange(dia, $event)">
-            <span>{{ dia | titlecase }}</span>
-          </label>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="codigo">Código del Aula</label>
+            <div class="input-wrap">
+              <i class="fas fa-hashtag input-icon"></i>
+              <input type="text" id="codigo" [(ngModel)]="aulaForm.codigo" name="codigo" placeholder="Ej: L-101" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="capacidad">Capacidad de Alumnos</label>
+            <div class="input-wrap">
+              <i class="fas fa-users input-icon"></i>
+              <input type="number" id="capacidad" [(ngModel)]="aulaForm.cantidad" name="capacidad" min="1" placeholder="Ej: 30" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="curso">Curso Relacionado</label>
+            <div class="input-wrap">
+              <i class="fas fa-book input-icon"></i>
+              <select id="curso" [(ngModel)]="aulaForm.id_curso" name="id_curso" required class="modern-select">
+                <option value="" disabled selected>Seleccione un curso...</option>
+                <option *ngFor="let c of cursos" [value]="c.id">{{ c.nombre }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="profe">Profesor Asignado</label>
+            <div class="input-wrap">
+              <i class="fas fa-user-tie input-icon"></i>
+              <select id="profe" [(ngModel)]="aulaForm.id_profesor" name="id_profesor" required class="modern-select">
+                <option value="" disabled selected>Seleccione un docente...</option>
+                <option *ngFor="let p of profesores" [value]="p.id">{{ p.nombre }} {{ p.apellido }}</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="f_inicio">Fecha de Inicio</label>
-        <input type="date" id="f_inicio" [(ngModel)]="aulaForm.fecha_inicio" name="fecha_inicio" required>
+      <!-- Sección 2: Calendario -->
+      <div class="form-section">
+        <div class="section-label">
+          <span class="step">2</span>
+          <h3>Calendario y horarios</h3>
+        </div>
+
+        <div class="form-group full-width">
+          <label>Días de Clase</label>
+          <div class="days-selector">
+            <label *ngFor="let dia of listaDiasDefault"
+                   class="day-chip"
+                   [class.checked]="aulaForm.dias.includes(dia)">
+              <input type="checkbox" [checked]="aulaForm.dias.includes(dia)" (change)="onDiaChange(dia, $event)">
+              <i class="fas fa-check chip-check"></i>
+              <span>{{ dia | titlecase }}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="f_inicio">Fecha de Inicio</label>
+            <div class="input-wrap">
+              <i class="fas fa-calendar-day input-icon"></i>
+              <input type="date" id="f_inicio" [(ngModel)]="aulaForm.fecha_inicio" name="fecha_inicio" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="f_fin">Fecha de Finalización</label>
+            <div class="input-wrap">
+              <i class="fas fa-calendar-check input-icon"></i>
+              <input type="date" id="f_fin" [(ngModel)]="aulaForm.fecha_fin" name="fecha_fin" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="h_inicio">Hora de Inicio</label>
+            <div class="input-wrap">
+              <i class="far fa-clock input-icon"></i>
+              <input type="time" id="h_inicio" [(ngModel)]="aulaForm.hora_inicio" name="hora_inicio" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="h_fin">Hora de Finalización</label>
+            <div class="input-wrap">
+              <i class="far fa-clock input-icon"></i>
+              <input type="time" id="h_fin" [(ngModel)]="aulaForm.hora_fin" name="hora_fin" required>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="f_fin">Fecha de Finalización</label>
-        <input type="date" id="f_fin" [(ngModel)]="aulaForm.fecha_fin" name="fecha_fin" required>
+      <!-- Sección 3: Recursos -->
+      <div class="form-section">
+        <div class="section-label">
+          <span class="step">3</span>
+          <h3>Recursos virtuales</h3>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Link Google Meet</label>
+            <div class="input-wrap brand-meet">
+              <i class="fas fa-video input-icon"></i>
+              <input type="text" [(ngModel)]="aulaForm.linkMeet" name="meet_link"
+                     placeholder="https://meet.google.com/xxx-xxxx-xxx">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Link Google Classroom</label>
+            <div class="input-wrap brand-classroom">
+              <i class="fas fa-graduation-cap input-icon"></i>
+              <input type="text" [(ngModel)]="aulaForm.linkClassroom" name="classroom_link"
+                     placeholder="https://classroom.google.com/...">
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label for="h_inicio">Hora de Inicio</label>
-        <input type="time" id="h_inicio" [(ngModel)]="aulaForm.hora_inicio" name="hora_inicio" required>
-      </div>
-
-      <div class="form-group">
-        <label for="h_fin">Hora de Finalización</label>
-        <input type="time" id="h_fin" [(ngModel)]="aulaForm.hora_fin" name="hora_fin" required>
-      </div>
-
-      <div class="form-group full-width">
-        <label>Link Google Meet</label>
-        <input type="text"
-              [(ngModel)]="aulaForm.linkMeet"
-              name="meet_link"
-              placeholder="https://meet.google.com/xxx-xxxx-xxx">
-      </div>
-
-      <div class="form-group full-width">
-        <label>Link Google Classroom</label>
-        <input type="text"
-              [(ngModel)]="aulaForm.linkClassroom"
-              name="classroom_link"
-              placeholder="https://classroom.google.com/...">
-      </div>
-
-      <div class="full-width action-container" style="display: flex; gap: 12px;">
-        <button type="submit" class="btn-submit" [disabled]="aulaFormulario.invalid || aulaForm.dias.length === 0">
+      <!-- Footer sticky -->
+      <div class="form-footer">
+        <button *ngIf="modoEdicion" type="button" class="btn-ghost" (click)="cancelarEdicion()">
+          <i class="fas fa-times"></i><span>Cancelar</span>
+        </button>
+        <button type="submit" class="btn-primary"
+                [disabled]="aulaFormulario.invalid || aulaForm.dias.length === 0">
           <i class="fas fa-save"></i>
           <span>{{ modoEdicion ? 'Guardar Cambios' : 'Guardar y Registrar Aula' }}</span>
         </button>
-        <button *ngIf="modoEdicion" type="button" class="btn-cancel" (click)="cancelarEdicion()">
-          <i class="fas fa-times"></i>
-          <span>Cancelar</span>
-        </button>
       </div>
     </form>
-  </div>
+  </section>
 
-  <div *ngIf="vista === 'ver'" class="admin-card animate-fade-in">
-    <div class="header-table" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-      <div>
-        <h2>Listado de Aulas</h2>
-        <p>Aulas y espacios actualmente en funcionamiento.</p>
+  <!-- ============== LISTADO ============== -->
+  <section *ngIf="vista === 'ver'" class="admin-card animate-fade-in">
+    <div class="card-header between">
+      <div class="card-header-row">
+        <div class="card-header-icon"><i class="fas fa-list-ul"></i></div>
+        <div>
+          <h2>Listado de Aulas</h2>
+          <p>Aulas y espacios actualmente en funcionamiento.</p>
+        </div>
       </div>
+
       <div class="search-box">
         <i class="fas fa-search"></i>
         <input type="text" placeholder="Buscar por código o curso..." [(ngModel)]="busqueda">
@@ -125,35 +203,45 @@
             <th class="text-center">Acciones</th>
           </tr>
         </thead>
-        <tbody style="cursor: pointer">
-          <tr *ngFor="let a of aulasFiltradas()" (click)="verIntegrantes(a.id)">
+        <tbody>
+          <tr *ngFor="let a of aulasFiltradas()" (click)="verIntegrantes(a.id)" class="row-link">
             <td>
               <div class="user-info">
-                <div class="user-avatar">{{ a?.codigo?.substring(0,1) || 'A' }}</div>
-                <span style="font-weight: 700;">{{ a.codigo }}</span>
+                <div class="user-avatar">{{ a?.codigo?.substring(0,2) || 'A' }}</div>
+                <div>
+                  <div class="primary">{{ a.codigo }}</div>
+                  <div class="muted">Capacidad: {{ a.cantidad || '—' }}</div>
+                </div>
               </div>
             </td>
             <td>
-              <div style="font-size: 14px; font-weight: 600; color: var(--dark);">{{ a.id_curso?.nombre }}</div>
-              <div style="font-size: 12px; color: #64748b;">Docente: {{ a.id_profesor?.nombre }}</div>
+              <div class="primary">{{ a.id_curso?.nombre }}</div>
+              <div class="muted">Docente: {{ a.id_profesor?.nombre }}</div>
             </td>
             <td>
-              <span *ngFor="let d of a.dias" class="badge-pill" style="margin-right: 4px;">{{ d.substring(0,3) }}</span>
+              <div class="chips-row">
+                <span *ngFor="let d of a.dias" class="badge-pill">{{ d.substring(0,3) | titlecase }}</span>
+              </div>
             </td>
             <td class="text-center">
-              <button (click)="eliminarAula(a.id); $event.stopPropagation()" class="btn-icon delete">
-                <i class="fas fa-trash"></i>
-              </button>
-              <button (click)="editarAula(a.id); $event.stopPropagation()" class="btn-icon edit">
+              <button (click)="editarAula(a.id); $event.stopPropagation()" class="btn-icon edit" title="Editar">
                 <i class="fas fa-edit"></i>
+              </button>
+              <button (click)="eliminarAula(a.id); $event.stopPropagation()" class="btn-icon delete" title="Eliminar">
+                <i class="fas fa-trash"></i>
               </button>
             </td>
           </tr>
           <tr *ngIf="aulasFiltradas().length === 0">
-            <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No se encontraron registros.</td>
+            <td colspan="4">
+              <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <p>No se encontraron registros.</p>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div>
+  </section>
 </div>
