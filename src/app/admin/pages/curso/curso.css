@@ -91,6 +91,7 @@ label {
 }
 
 input[type="text"],
+input[type="number"],
 textarea {
   width: 100%;
   padding: 12px 14px;
@@ -113,6 +114,45 @@ textarea:focus-visible {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Price Input Wrapper */
+.price-input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.price-input-wrapper:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.price-symbol {
+  padding: 12px 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.price-input-wrapper input[type="number"] {
+  flex: 1;
+  border: none;
+  padding: 12px 14px;
+  background: transparent;
+  transition: none;
+}
+
+.price-input-wrapper input[type="number"]:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 /* =====================

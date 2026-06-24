@@ -87,7 +87,7 @@ export class MisCursos implements OnInit {
       title: ins.aula.id_curso.nombre,
       quantity: 1,
       currencyId: "PEN",
-      unitPrice: 100.00
+      unitPrice: ins.aula.id_curso.precio,
     };
 
     this.pagoService.crearPago(pago)

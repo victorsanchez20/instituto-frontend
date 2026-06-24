@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { Curso } from '../../../models/curso';
 import { environment } from '../../../../environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-curso',
@@ -15,6 +16,7 @@ export class CursoComponet implements OnInit {
 
   nombre = '';
   descripcion = '';
+  precio = '';
 
   selectedFile: File | null = null;
   previewImage: string | ArrayBuffer | null = null;
@@ -34,12 +36,17 @@ export class CursoComponet implements OnInit {
 
   guardarCurso() {
     if (!this.selectedFile) {
-      alert('Seleccione una imagen');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Imagen requerida',
+        text: 'Por favor, seleccione una imagen para el curso.',
+      });
       return;
     }
 
     const formData = new FormData();
     formData.append('nombre', this.nombre);
+    formData.append('precio', this.precio);
     formData.append('descripcion', this.descripcion);
     formData.append('imagen', this.selectedFile);
 
@@ -48,9 +55,14 @@ export class CursoComponet implements OnInit {
         this.listarCursos();
         this.nombre = '';
         this.descripcion = '';
+        this.precio = '';
         this.selectedFile = null;
         this.previewImage = null;
-        alert('Curso guardado con éxito');
+        Swal.fire({
+          icon: 'success',
+          title: '¡Éxito!',
+          text: 'Curso guardado con éxito.',
+        });
       },
       error: (e) => console.error(e)
     });
@@ -92,21 +104,40 @@ export class CursoComponet implements OnInit {
   }
 
   eliminar(id: any) {
-    // 1. Confirmación de seguridad
-    if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
-      
-      this.cursoService.eliminarCurso(id).subscribe({
-        next: () => {
-          // 2. Filtramos el array local para que desaparezca de la vista de inmediato
-          this.cursos = this.cursos.filter(c => c.id !== id);
-          console.log('Curso eliminado con éxito');
-        },
-        error: (err) => {
-          console.error('Error al eliminar:', err);
-          alert('No se pudo eliminar el curso.');
-        }
-      });
-      this.cdr.detectChanges();
-    }
+    // 1. Confirmación de seguridad con SweetAlert2
+    Swal.fire({
+      title: '¿Eliminar curso?',
+      text: '¿Estás seguro de que deseas eliminar este curso?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cursoService.eliminarCurso(id).subscribe({
+          next: () => {
+            // 2. Filtramos el array local para que desaparezca de la vista de inmediato
+            this.cursos = this.cursos.filter(c => c.id !== id);
+            Swal.fire({
+              icon: 'success',
+              title: '¡Eliminado!',
+              text: 'El curso ha sido eliminado correctamente.',
+            });
+            console.log('Curso eliminado con éxito');
+          },
+          error: (err) => {
+            console.error('Error al eliminar:', err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se pudo eliminar el curso.',
+            });
+          }
+        });
+        this.cdr.detectChanges();
+      }
+    });
   }
 }

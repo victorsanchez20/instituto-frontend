@@ -3,6 +3,7 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { EstudianteService } from '../../../services/estudiante.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,11 @@ export class Login {
       if (this.user === 'admin' && this.pass === '12345') {
         this.router.navigate(['/portal']);
       } else {
-        alert('Credenciales de Administrador incorrectas');
+        Swal.fire({
+          icon: 'error',
+          title: 'Credenciales incorrectas',
+          text: 'Usuario o contraseña de administrador no son válidos.',
+        });
       }
     } else {
       this.estudianteService.login(this.user, this.pass).subscribe({
@@ -42,12 +47,16 @@ export class Login {
           console.log('Login exitoso', response);
           console.log(this.user, this.pass);
           localStorage.setItem('usuarioLogueado', JSON.stringify(response));
-          this.router.navigate(['/portal-estudiante'])
+          this.router.navigate(['/portal-estudiante'])  
         },
         error: (err) => {
           console.error(err);
           console.log(this.user, this.pass);
-          alert('Usuario y contraseña incorrectos');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error de inicio de sesión',
+            text: 'Usuario y contraseña incorrectos.',
+          });
         }
       })
     }
