@@ -1,15 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-
-export interface PagoRequest {
-  cursoId: number;
-  title?: string;
-  quantity?: number;
-  currencyId?: string;
-  unitPrice?: number;
-}
 
 export interface PagoResponse {
   url: string;
@@ -25,9 +17,11 @@ export class PagoService {
   private api = `${environment.api}/api/pagos`;
 
   crearPago(cursoId: number): Observable<PagoResponse> {
+    const params = new HttpParams().set('cursoId', String(cursoId));
     return this.http.post<PagoResponse>(
       `${this.api}/crear`,
-      { cursoId }
+      null,
+      { params }
     );
   }
 
