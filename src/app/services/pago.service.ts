@@ -4,10 +4,11 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
 export interface PagoRequest {
-  title: string;
-  quantity: number;
-  currencyId: string;
-  unitPrice: number;
+  cursoId: number;
+  title?: string;
+  quantity?: number;
+  currencyId?: string;
+  unitPrice?: number;
 }
 
 export interface PagoResponse {
@@ -23,10 +24,10 @@ export class PagoService {
 
   private api = `${environment.api}/api/pagos`;
 
-  crearPago(data: PagoRequest): Observable<PagoResponse> {
+  crearPago(cursoId: number): Observable<PagoResponse> {
     return this.http.post<PagoResponse>(
       `${this.api}/crear`,
-      data
+      { cursoId }
     );
   }
 

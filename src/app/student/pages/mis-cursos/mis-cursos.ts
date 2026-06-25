@@ -83,14 +83,13 @@ export class MisCursos implements OnInit {
   }
 
   pagar(ins: any) {
-    const pago = {
-      title: ins.aula.id_curso.nombre,
-      quantity: 1,
-      currencyId: "PEN",
-      unitPrice: ins.aula.id_curso.precio,
-    };
+    const cursoId = ins?.aula?.id_curso?.id;
+    if (!cursoId) {
+      console.error('No se encontró cursoId para el pago.');
+      return;
+    }
 
-    this.pagoService.crearPago(pago)
+    this.pagoService.crearPago(cursoId)
       .subscribe({
         next: res => {
           window.location.href = res.url;
@@ -98,6 +97,6 @@ export class MisCursos implements OnInit {
         error: err => {
           console.error(err);
         }
-      })
+      });
   }
 }
