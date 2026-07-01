@@ -3,6 +3,7 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { EstudianteService } from '../../../services/estudiante.service';
+import { AdminService } from '../../../services/admin.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,7 +21,11 @@ export class Login {
   user: string = '';
   pass: string = '';
 
-  constructor(private router: Router, private estudianteService: EstudianteService) {}
+  constructor(
+    private router: Router,
+    private estudianteService: EstudianteService,
+    private adminService: AdminService
+  ) {}
 
   setTipo(tipo: 'alumno' | 'admin') {
     this.tipoUsuario = tipo;
@@ -32,15 +37,19 @@ export class Login {
   validarUsuario() {
     // Aquí puedes diferenciar la lógica
     if (this.tipoUsuario === 'admin') {
-      if (this.user === 'admin' && this.pass === '12345') {
-        this.router.navigate(['/portal']);
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Credenciales incorrectas',
-          text: 'Usuario o contraseña de administrador no son válidos.',
-        });
-      }
+      this.adminService.login(this.user, this.pass).subscribe({
+        next: () => {
+          localStorage.setItem('adminLogueado', JSON.stringify({ usuario: this.user }));
+          this.router.navigate(['/portal']);
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Credenciales incorrectas',
+            text: 'Usuario o contraseña de administrador no son válidos.',
+          });
+        }
+      });
     } else {
       this.estudianteService.login(this.user, this.pass).subscribe({
         next: (response) => {
