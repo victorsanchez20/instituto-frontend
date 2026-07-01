@@ -49,27 +49,27 @@
         <div class="barra-item" *ngFor="let d of distribucion">
           <div class="barra-header">
             <span class="barra-nombre">{{ d.nombre }}</span>
-            <span class="barra-pct" [style.color]="d.color">{{ d.total }}</span>
+            <span class="barra-pct" [style.color]="d.color">{{ d.total }} ({{ d.pct }}%)</span>
           </div>
           <div class="barra-track">
-            <div class="barra-fill" [style.width.%]="d.total" [style.background]="d.color"></div>
+            <div class="barra-fill" [style.width.%]="d.pct" [style.background]="d.color"></div>
           </div>
         </div>
       </div>
       <div class="metricas-row">
         <div class="metrica">
-          <span class="metrica-val">78%</span>
-          <span class="metrica-lbl">Ocupación</span>
+          <span class="metrica-val">{{ totalInscripciones }}</span>
+          <span class="metrica-lbl">Inscripciones</span>
         </div>
         <div class="metrica-sep"></div>
         <div class="metrica">
-          <span class="metrica-val" style="color: #10B981">94%</span>
-          <span class="metrica-lbl">Retención</span>
+          <span class="metrica-val" style="color: #10B981">{{ inscripcionesPagadas }}</span>
+          <span class="metrica-lbl">Pagadas</span>
         </div>
         <div class="metrica-sep"></div>
         <div class="metrica">
-          <span class="metrica-val" style="color: #3B82F6">4.8</span>
-          <span class="metrica-lbl">Promedio</span>
+          <span class="metrica-val" style="color: #3B82F6">{{ tasaConversion }}%</span>
+          <span class="metrica-lbl">Conversión</span>
         </div>
       </div>
     </div>

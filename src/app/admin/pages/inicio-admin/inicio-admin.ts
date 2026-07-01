@@ -27,6 +27,7 @@ export interface AccesoRapido {
 export interface DistribucionCurso {
   nombre: string;
   total: number;
+  pct: number;
   color: string;
 }
 
@@ -52,6 +53,9 @@ export class InicioAdmin implements OnInit {
   totalAlumnosCount: number = 0;
   totalProfesoresCount: number = 0;
   vista: string = 'crear';
+  totalInscripciones: number = 0;
+  inscripcionesPagadas: number = 0;
+  tasaConversion: number = 0;
 
 
   stats: StatCard[] = [
@@ -95,10 +99,10 @@ export class InicioAdmin implements OnInit {
   ];
 
   distribucion: DistribucionCurso[] = [
-    { nombre: 'Exactas',      total: 0, color: '#3B82F6' },
-    { nombre: 'Humanidades',  total: 0, color: '#8B5CF6' },
-    { nombre: 'Idiomas',      total: 0, color: '#10B981' },
-    { nombre: 'Tecnología',   total: 0, color: '#F59E0B' },
+    { nombre: 'Exactas',      total: 0, pct: 0, color: '#3B82F6' },
+    { nombre: 'Humanidades',  total: 0, pct: 0, color: '#8B5CF6' },
+    { nombre: 'Idiomas',      total: 0, pct: 0, color: '#10B981' },
+    { nombre: 'Tecnología',   total: 0, pct: 0, color: '#F59E0B' },
   ];
 
   ultimasInscripciones: Inscripcion[] = [
@@ -130,6 +134,7 @@ export class InicioAdmin implements OnInit {
     this.cargarTotalCursos();
     this.cargarTotalAulas();
     this.cargarInscritosPorCurso();
+    this.cargarTotalInscripciones();
     this.cargarUltimasInscripciones();
   }
 
@@ -197,16 +202,38 @@ export class InicioAdmin implements OnInit {
   cargarInscritosPorCurso(): void {
     this.cursoService.totalInscritosPorCurso().subscribe({
       next: (data) => {
+        const totalPagado = data.reduce((sum, item) => sum + Number(item[1]), 0);
+        this.inscripcionesPagadas = totalPagado;
+
         this.distribucion = data.slice(0, 4).map((item, index) => ({
           nombre: item[0],
-          total: item[1],
+          total: Number(item[1]),
+          pct: totalPagado > 0 ? Math.round((Number(item[1]) / totalPagado) * 100) : 0,
           color: this.colors[index]
         }));
 
+        this.actualizarMetricas();
         this.cdr.detectChanges();
       },
       error: (err) => console.error('Error al cargar distribución', err)
     });
+  }
+
+  cargarTotalInscripciones(): void {
+    this.inscripcionService.listarInscripciones().subscribe({
+      next: (data) => {
+        this.totalInscripciones = data.length;
+        this.actualizarMetricas();
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error al cargar total inscripciones', err)
+    });
+  }
+
+  actualizarMetricas(): void {
+    this.tasaConversion = this.totalInscripciones > 0
+      ? Math.round((this.inscripcionesPagadas / this.totalInscripciones) * 100)
+      : 0;
   }
 
   cargarUltimasInscripciones(): void {
