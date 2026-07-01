@@ -18,6 +18,7 @@ export class ListaAlumnos {
   paginaActual: number = 1;
   readonly porPagina: number = 7;
   listaFiltrada: Estudiante[] = [];
+  selectedStudent: Estudiante | null = null;
 
 
   constructor(private estudianteService: EstudianteService, private cdr: ChangeDetectorRef) {}
@@ -78,8 +79,15 @@ export class ListaAlumnos {
 
   eliminar(id?: number) {
     if (id && confirm('¿Deseas dar de baja a este estudiante?')) {
-      // Lógica de eliminación aquí
       console.log('Eliminando ID:', id);
     }
+  }
+
+  verDetalle(estudiante: Estudiante) {
+    this.selectedStudent = estudiante;
+  }
+
+  cerrarModal() {
+    this.selectedStudent = null;
   }
 }

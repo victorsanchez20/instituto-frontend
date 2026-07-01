@@ -37,14 +37,8 @@
           <td><span class="user-pill">@{{ e.usuario }}</span></td>
           <td>
             <div class="action-buttons">
-              <button class="btn-action view" title="Ver Historial">
+              <button class="btn-action view" (click)="verDetalle(e)" title="Ver datos completos">
                 <i class="fas fa-eye"></i>
-              </button>
-              <button class="btn-action edit" title="Editar Datos">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="btn-action delete" (click)="eliminar(e.id)" title="Eliminar">
-                <i class="fas fa-user-minus"></i>
               </button>
             </div>
           </td>
@@ -74,6 +68,54 @@
       <button class="page-btn" (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">
         <i class="fas fa-chevron-right"></i>
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de detalle del estudiante -->
+<div class="modal-overlay" *ngIf="selectedStudent" (click)="cerrarModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="cerrarModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <h2>Datos del Estudiante</h2>
+    <div class="modal-body">
+      <div class="detail-row">
+        <span class="detail-label">Nombres</span>
+        <span class="detail-value">{{ selectedStudent.nombres }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Apellidos</span>
+        <span class="detail-value">{{ selectedStudent.apellidos }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Email</span>
+        <span class="detail-value">{{ selectedStudent.email }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Usuario</span>
+        <span class="detail-value">@{{ selectedStudent.usuario }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Documento</span>
+        <span class="detail-value">{{ selectedStudent.documento || '—' }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Teléfono</span>
+        <span class="detail-value">{{ selectedStudent.telefono || '—' }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Fecha de Nacimiento</span>
+        <span class="detail-value">{{ selectedStudent.fechaNacimiento || '—' }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Dirección</span>
+        <span class="detail-value">{{ selectedStudent.direccion || '—' }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Género</span>
+        <span class="detail-value">{{ selectedStudent.genero || '—' }}</span>
+      </div>
     </div>
   </div>
 </div>
