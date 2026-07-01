@@ -1,0 +1,132 @@
+<div class="student-home">
+  <!-- BIENVENIDA -->
+  <div class="welcome-card">
+    <div class="welcome-left">
+      <div class="welcome-avatar">
+        @if (alumno?.fotoUrl) {
+          <img [src]="alumno.fotoUrl" [alt]="alumno?.nombres" />
+        } @else {
+          <span>{{ inicialAlumno }}</span>
+        }
+      </div>
+      <div class="welcome-text">
+        <h1>¡Bienvenido de nuevo, {{ alumno?.nombres || 'Estudiante' }}! 👋</h1>
+        <p>Continúa tu camino hacia el éxito académico.</p>
+      </div>
+    </div>
+
+    <div class="welcome-stats">
+      <div class="stat-item">
+        <span class="stat-icon">📖</span>
+        <span class="stat-label">Cursos Inscritos: <strong>{{ stats.cursosInscritos }}</strong></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">📈</span>
+        <span class="stat-label">Progreso Total: <strong>{{ stats.progresoTotal }}%</strong></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-icon">🏅</span>
+        <span class="stat-label">Certificados Obtenidos: <strong>{{ stats.certificados }}</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARRUSEL DE ANUNCIOS -->
+  @if (anuncios.length > 0) {
+    <h2 class="section-title">Carrusel de Anuncios</h2>
+
+    <div class="carousel-container">
+      <div class="carousel-slide" [style.transform]="'translateX(-' + slideIndex * 100 + '%)'">
+        <div class="carousel-item" *ngFor="let a of anuncios">
+          @if (a.imagenUrl) {
+            <img [src]="a.imagenUrl" [alt]="a.titulo" class="carousel-img" />
+          }
+          <div class="carousel-content" [class.has-img]="a.imagenUrl">
+            <h2>{{ a.titulo }}</h2>
+            <p>{{ a.descripcion }}</p>
+          </div>
+        </div>
+      </div>
+
+      @if (anuncios.length > 1) {
+        <button class="carousel-btn prev" (click)="prevSlide()">&#10094;</button>
+        <button class="carousel-btn next" (click)="nextSlide()">&#10095;</button>
+
+        <div class="carousel-dots">
+          <span
+            *ngFor="let a of anuncios; let i = index"
+            class="dot"
+            [class.active]="i === slideIndex"
+            (click)="irASlide(i)"
+          ></span>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- CURSOS EN CURSO + PROXIMO PASO -->
+  <div class="dashboard-grid">
+    <div class="courses-panel">
+      <h2 class="section-title">Mis Cursos en Curso</h2>
+
+      @if (cursosEnCurso.length > 0) {
+        <div class="courses-grid">
+          <div class="course-card" *ngFor="let c of cursosEnCurso; let i = index">
+            <div class="course-card-header">
+              <span class="course-number">{{ i + 1 }}.</span>
+              <span class="course-icon">{{ c.icono }}</span>
+            </div>
+            <p class="course-title">{{ c.titulo }}</p>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="c.progreso"></div>
+            </div>
+            <span class="progress-label">{{ c.progreso }}%</span>
+            <button class="course-btn">{{ c.progreso > 0 ? 'Reanudar Lección' : 'Ir al Curso' }}</button>
+          </div>
+        </div>
+      } @else {
+        <div class="empty-state">
+          <span class="empty-icon">📚</span>
+          <p>Muy pronto vas a poder retomar tus cursos en curso desde aquí.</p>
+        </div>
+      }
+    </div>
+
+    <div class="next-step-panel">
+      <h2 class="section-title">Tu Próximo Paso</h2>
+
+      @if (proximosPasos.length > 0) {
+        <div class="next-step-list">
+          <div class="next-step-item" *ngFor="let p of proximosPasos">
+            <span class="next-step-icon" [ngClass]="p.tipo">{{ p.icono }}</span>
+            <div>
+              <p class="next-step-label">{{ p.titulo }}</p>
+              <p class="next-step-value">{{ p.detalle }}</p>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div class="empty-state">
+          <span class="empty-icon">🗓️</span>
+          <p>Aquí verás tus próximas entregas y clases en cuanto estén disponibles.</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- ACCESOS RAPIDOS -->
+  <h2 class="section-title">Accesos Rápidos</h2>
+  <div class="quick-links">
+    <a routerLink="/portal-estudiante/oferta-academica" class="quick-card">
+      <span class="quick-icon">📚</span>
+      <span class="quick-title">Oferta Académica</span>
+      <span class="quick-desc">Explora nuestros cursos disponibles</span>
+    </a>
+
+    <a routerLink="/portal-estudiante/mis-cursos" class="quick-card">
+      <span class="quick-icon">📋</span>
+      <span class="quick-title">Mis Cursos</span>
+      <span class="quick-desc">Consulta tus cursos inscritos</span>
+    </a>
+  </div>
+</div>

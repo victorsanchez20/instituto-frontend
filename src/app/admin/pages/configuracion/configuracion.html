@@ -1,0 +1,63 @@
+<div class="config-wrapper">
+  <div class="config-header">
+    <h1>Configuración</h1>
+  </div>
+
+  <!-- FORMULARIO SIEMPRE VISIBLE -->
+  <div class="config-form">
+    <h2>{{ editando ? 'Editar' : 'Nuevo' }} Anuncio</h2>
+    @if (editando) {
+      <p class="edit-hint">Editando: <strong>{{ formulario.titulo }}</strong> — <a href="#" (click)="$event.preventDefault(); nuevo()">Crear nuevo</a></p>
+    }
+    <div class="form-group">
+      <label>Título</label>
+      <input type="text" [(ngModel)]="formulario.titulo" placeholder="Título del anuncio" />
+    </div>
+    <div class="form-group">
+      <label>Descripción</label>
+      <textarea [(ngModel)]="formulario.descripcion" placeholder="Descripción del anuncio" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <label>URL de imagen (opcional)</label>
+      <input type="url" [(ngModel)]="formulario.imagenUrl" placeholder="https://ejemplo.com/imagen.jpg" />
+    </div>
+    <div class="form-group checkbox-group">
+      <label>
+        <input type="checkbox" [(ngModel)]="formulario.activo" />
+        Activo
+      </label>
+    </div>
+    <div class="form-actions">
+      <button class="btn-primary" (click)="guardar()">{{ editando ? 'Actualizar' : 'Guardar' }}</button>
+      @if (editando) {
+        <button class="btn-secondary" (click)="nuevo()">Cancelar</button>
+      }
+    </div>
+  </div>
+
+  <!-- LISTA DE ANUNCIOS -->
+  <h2 class="list-title">Anuncios existentes</h2>
+  <div class="anuncios-list">
+    @for (a of anuncios; track a.id) {
+      <div class="anuncio-card" [class.inactivo]="!a.activo" [class.selected]="formulario.id === a.id">
+        <div class="anuncio-body">
+          @if (a.imagenUrl) {
+            <img [src]="a.imagenUrl" [alt]="a.titulo" class="anuncio-img" />
+          }
+          <div class="anuncio-info">
+            <h3>{{ a.titulo }}</h3>
+            <p>{{ a.descripcion }}</p>
+            <span class="anuncio-fecha">{{ a.fechaCreacion | date:'dd/MM/yyyy' }}</span>
+            @if (!a.activo) {
+              <span class="badge-inactivo">Inactivo</span>
+            }
+          </div>
+        </div>
+        <div class="anuncio-actions">
+          <button class="btn-icon" (click)="editar(a)" title="Editar">✏️</button>
+          <button class="btn-icon" (click)="eliminar(a.id!)" title="Eliminar">🗑️</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

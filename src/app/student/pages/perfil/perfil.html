@@ -1,0 +1,27 @@
+<div class="perfil-wrapper">
+  <h1>Mi Perfil</h1>
+
+  @if (alumno) {
+    <div class="perfil-card">
+      <div class="perfil-avatar">
+        <img [src]="'https://ui-avatars.com/api/?name=' + alumno.nombres + '+' + alumno.apellidos + '&background=2563eb&color=fff&size=120'" alt="Avatar" />
+      </div>
+      <div class="perfil-info">
+        <div class="info-row">
+          <span class="info-label">Nombre</span>
+          <span class="info-value">{{ alumno.nombres }} {{ alumno.apellidos }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email</span>
+          <span class="info-value">{{ alumno.email }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Usuario</span>
+          <span class="info-value">{{ alumno.usuario }}</span>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <p class="no-data">No se encontraron datos del perfil.</p>
+  }
+</div>

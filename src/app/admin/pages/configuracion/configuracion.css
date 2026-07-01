@@ -1,0 +1,207 @@
+.config-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.config-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.config-header h1 {
+  font-size: 1.6rem;
+  margin: 0;
+  color: #1e293b;
+}
+
+.config-form {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.config-form h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: #334155;
+}
+
+.edit-hint {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 1rem;
+}
+
+.edit-hint a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 0.3rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group textarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.list-title {
+  font-size: 1.1rem;
+  color: #334155;
+  margin: 0 0 1rem;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #e2e8f0;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.btn-icon:hover {
+  background: #f1f5f9;
+}
+
+.anuncios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.anuncio-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.anuncio-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.anuncio-card.selected {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.anuncio-card.inactivo {
+  opacity: 0.6;
+}
+
+.anuncio-body {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex: 1;
+}
+
+.anuncio-img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.anuncio-info h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+.anuncio-info p {
+  margin: 0 0 0.3rem;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.anuncio-fecha {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.badge-inactivo {
+  display: inline-block;
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  margin-left: 0.5rem;
+}
+
+.anuncio-actions {
+  display: flex;
+  gap: 0.3rem;
+  margin-left: 1rem;
+}

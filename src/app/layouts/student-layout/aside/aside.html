@@ -8,6 +8,20 @@
 
   <nav class="sidebar-content">
     <div class="menu-section">
+      <p class="section-title">General</p>
+
+      <a routerLink="/portal-estudiante" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="menu-item">
+        <i class="icon-home"></i>
+        <span>Inicio</span>
+      </a>
+
+      <a routerLink="/portal-estudiante/perfil" routerLinkActive="active" class="menu-item">
+        <i class="icon-user"></i>
+        <span>Mi Perfil</span>
+      </a>
+    </div>
+
+    <div class="menu-section">
       <p class="section-title">Académico</p>
       
       <a routerLink="/portal-estudiante/oferta-academica" routerLinkActive="active" class="menu-item">
