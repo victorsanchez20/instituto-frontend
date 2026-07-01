@@ -260,6 +260,38 @@
 .form-row:nth-child(2) .form-group:nth-child(2) { animation-delay: 0.25s; }
 .form-row:nth-child(3) .form-group:nth-child(1) { animation-delay: 0.3s; }
 .form-row:nth-child(3) .form-group:nth-child(2) { animation-delay: 0.35s; }
+.form-row:nth-child(4) .form-group:nth-child(1) { animation-delay: 0.4s; }
+.form-row:nth-child(4) .form-group:nth-child(2) { animation-delay: 0.45s; }
+.form-row:nth-child(5) .form-group:nth-child(1) { animation-delay: 0.5s; }
+.form-row:nth-child(5) .form-group:nth-child(2) { animation-delay: 0.55s; }
+
+.full-width {
+  animation: fadeInUp 0.4s ease-out forwards;
+  animation-delay: 0.6s;
+  opacity: 0;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 0.7rem 0;
+  border: none;
+  background: transparent;
+  font-size: 0.92rem;
+  color: #1a202c;
+  border-bottom: 2px solid #e2e8f0;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  appearance: none;
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  outline: none;
+}
+
+.form-group select:focus + .input-underline {
+  transform: scaleX(1);
+}
 
 @keyframes fadeInUp {
   from {

@@ -47,13 +47,7 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="nombre">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-              </svg>
-              Nombres
-            </label>
+            <label for="nombre">Nombres</label>
             <div class="input-wrapper">
               <input type="text" id="nombre" name="nombre" placeholder="Ej: Carlos" [(ngModel)]="registroData.nombre" minlength="2" required>
               <div class="input-underline"></div>
@@ -61,15 +55,7 @@
           </div>
 
           <div class="form-group">
-            <label for="apellidos">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
-              Apellidos
-            </label>
+            <label for="apellidos">Apellidos</label>
             <div class="input-wrapper">
               <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Mendoza" [(ngModel)]="registroData.apellidos" minlength="2" required>
               <div class="input-underline"></div>
@@ -79,13 +65,25 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="usuario">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
-              Usuario
-            </label>
+            <label for="documento">Documento / DNI</label>
+            <div class="input-wrapper">
+              <input type="text" id="documento" name="documento" placeholder="Ej: 12345678" [(ngModel)]="registroData.documento">
+              <div class="input-underline"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <div class="input-wrapper">
+              <input type="tel" id="telefono" name="telefono" placeholder="Ej: 099123456" [(ngModel)]="registroData.telefono">
+              <div class="input-underline"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="usuario">Usuario</label>
             <div class="input-wrapper">
               <input type="text" id="usuario" name="usuario" placeholder="Ej: cmendoza" [(ngModel)]="registroData.usuario" minlength="3" required>
               <div class="input-underline"></div>
@@ -93,13 +91,7 @@
           </div>
 
           <div class="form-group">
-            <label for="correo">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-              Correo
-            </label>
+            <label for="correo">Correo</label>
             <div class="input-wrapper">
               <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" [(ngModel)]="registroData.correo" required>
               <div class="input-underline"></div>
@@ -109,13 +101,38 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="password">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
-              Contraseña
-            </label>
+            <label for="fechaNacimiento">Fecha de nacimiento</label>
+            <div class="input-wrapper">
+              <input type="date" id="fechaNacimiento" name="fechaNacimiento" [(ngModel)]="registroData.fechaNacimiento">
+              <div class="input-underline"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="genero">Género</label>
+            <div class="input-wrapper">
+              <select id="genero" name="genero" [(ngModel)]="registroData.genero">
+                <option value="">Seleccionar</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Otro">Otro</option>
+              </select>
+              <div class="input-underline"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="direccion">Dirección</label>
+          <div class="input-wrapper">
+            <input type="text" id="direccion" name="direccion" placeholder="Ej: Calle Principal 123" [(ngModel)]="registroData.direccion">
+            <div class="input-underline"></div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Contraseña</label>
             <div class="input-wrapper">
               <input type="password" id="password" name="password" placeholder="Mínimo 6 caracteres" [(ngModel)]="registroData.password" minlength="6" required>
               <div class="input-underline"></div>
@@ -123,14 +140,7 @@
           </div>
 
           <div class="form-group">
-            <label for="confirmar">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                <circle cx="12" cy="16" r="1"/>
-              </svg>
-              Confirmar contraseña
-            </label>
+            <label for="confirmar">Confirmar contraseña</label>
             <div class="input-wrapper">
               <input type="password" id="confirmar" name="confirmar" placeholder="Repite la contraseña" [(ngModel)]="registroData.confirmar" minlength="6" required>
               <div class="input-underline"></div>

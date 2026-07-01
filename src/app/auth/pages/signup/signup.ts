@@ -14,18 +14,19 @@ import Swal from 'sweetalert2';
 export class Signup {
 
   registroData = {
-    nombre: '',       // En tu Java es nombre_completo
+    nombre: '',
     apellidos: '',
-    documento: '',    // Agregado para tu modelo Java
-    fechaNacimiento: '', // Agregado para tu modelo Java
+    documento: '',
+    telefono: '',
+    fechaNacimiento: '',
+    direccion: '',
+    genero: '',
     usuario: '',
-    correo: '',       
-    email: '',        // Tu Java pide ambos: correo y email
+    correo: '',
     password: '',
     confirmar: ''
   };
 
-  // 1. ELIMINAMOS 'private estudiante: Estudiante' del constructor
   constructor(private router: Router, private estudianteService: EstudianteService) {}
 
   registrar() {
@@ -33,54 +34,46 @@ export class Signup {
       this.mostrarAlerta('warning', 'Nombre requerido', 'Ingresa tus nombres.');
       return;
     }
-
     if (!this.registroData.apellidos.trim()) {
       this.mostrarAlerta('warning', 'Apellido requerido', 'Ingresa tus apellidos.');
       return;
     }
-
     if (!this.registroData.usuario.trim()) {
       this.mostrarAlerta('warning', 'Usuario requerido', 'Ingresa tu usuario.');
       return;
     }
-
-
     if (!this.registroData.correo.trim()) {
       this.mostrarAlerta('warning', 'Correo requerido', 'Ingresa tu correo electronico.');
       return;
     }
-
-
     if (this.registroData.password !== this.registroData.confirmar) {
       this.mostrarAlerta('warning', 'Contraseñas diferentes', 'Las contraseñas deben coincidir.');
       return;
     }
 
-    // 2. Preparamos el objeto para que coincida con la Interfaz y Java
-    // Copiamos correo a email para que no falle el @Column de Java
     const nuevoEstudiante: Estudiante = {
       nombres: this.registroData.nombre,
       apellidos: this.registroData.apellidos,
       usuario: this.registroData.usuario,
-      email: this.registroData.correo, // Duplicamos por consistencia con tu modelo
-      password: this.registroData.password
+      email: this.registroData.correo,
+      password: this.registroData.password,
+      documento: this.registroData.documento,
+      telefono: this.registroData.telefono,
+      fechaNacimiento: this.registroData.fechaNacimiento,
+      direccion: this.registroData.direccion,
+      genero: this.registroData.genero,
     };
 
-    // 3. Llamada al servicio
     this.estudianteService.saveAlumno(nuevoEstudiante).subscribe({
-      next: (res) => {
+      next: () => {
         Swal.fire({
-        icon: 'success',
-        title: '¡Registro exitoso!',
-        text: 'Tu cuenta ha sido creada correctamente.',
-        timer: 1500,
-        showConfirmButton: false
-        })
-
-        setTimeout(() => {
-          this.irALogin();
-        }, 2000);
-
+          icon: 'success',
+          title: '¡Registro exitoso!',
+          text: 'Tu cuenta ha sido creada correctamente.',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        setTimeout(() => this.irALogin(), 2000);
       },
       error: (err) => {
         console.error('Error al registrar:', err);
@@ -105,9 +98,7 @@ export class Signup {
       confirmButtonColor: '#1d4ed8',
       background: '#ffffff',
       color: '#1f2937',
-      customClass: {
-        popup: 'mi-alerta'
-      },
+      customClass: { popup: 'mi-alerta' },
     });
   }
 }
