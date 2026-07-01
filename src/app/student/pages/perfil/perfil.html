@@ -1,27 +1,150 @@
 <div class="perfil-wrapper">
-  <h1>Mi Perfil</h1>
+  <div class="perfil-header">
+    <h1>Mi Perfil</h1>
+    @if (!editando) {
+      <button class="btn-outline" (click)="activarEdicion()">Editar perfil</button>
+    }
+  </div>
 
   @if (alumno) {
     <div class="perfil-card">
       <div class="perfil-avatar">
         <img [src]="'https://ui-avatars.com/api/?name=' + alumno.nombres + '+' + alumno.apellidos + '&background=2563eb&color=fff&size=120'" alt="Avatar" />
       </div>
-      <div class="perfil-info">
-        <div class="info-row">
-          <span class="info-label">Nombre</span>
-          <span class="info-value">{{ alumno.nombres }} {{ alumno.apellidos }}</span>
+
+      @if (editando) {
+        <!-- MODO EDICION -->
+        <div class="perfil-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombres</label>
+              <input type="text" [(ngModel)]="alumno.nombres" />
+            </div>
+            <div class="form-group">
+              <label>Apellidos</label>
+              <input type="text" [(ngModel)]="alumno.apellidos" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Documento / DNI</label>
+              <input type="text" [(ngModel)]="alumno.documento" />
+            </div>
+            <div class="form-group">
+              <label>Teléfono</label>
+              <input type="text" [(ngModel)]="alumno.telefono" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" [(ngModel)]="alumno.email" />
+            </div>
+            <div class="form-group">
+              <label>Usuario</label>
+              <input type="text" [(ngModel)]="alumno.usuario" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fecha de nacimiento</label>
+              <input type="date" [(ngModel)]="alumno.fechaNacimiento" />
+            </div>
+            <div class="form-group">
+              <label>Género</label>
+              <select [(ngModel)]="alumno.genero">
+                <option value="">Seleccionar</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group full-width">
+            <label>Dirección</label>
+            <input type="text" [(ngModel)]="alumno.direccion" />
+          </div>
+          <div class="form-actions">
+            <button class="btn-primary" (click)="guardarCambios()">Guardar cambios</button>
+            <button class="btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+          </div>
         </div>
-        <div class="info-row">
-          <span class="info-label">Email</span>
-          <span class="info-value">{{ alumno.email }}</span>
+      } @else {
+        <!-- MODO VISTA -->
+        <div class="perfil-info">
+          <div class="info-row">
+            <span class="info-label">Nombre</span>
+            <span class="info-value">{{ alumno.nombres }} {{ alumno.apellidos }}</span>
+          </div>
+          @if (alumno.documento) {
+            <div class="info-row">
+              <span class="info-label">Documento</span>
+              <span class="info-value">{{ alumno.documento }}</span>
+            </div>
+          }
+          @if (alumno.telefono) {
+            <div class="info-row">
+              <span class="info-label">Teléfono</span>
+              <span class="info-value">{{ alumno.telefono }}</span>
+            </div>
+          }
+          <div class="info-row">
+            <span class="info-label">Email</span>
+            <span class="info-value">{{ alumno.email }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Usuario</span>
+            <span class="info-value">{{ alumno.usuario }}</span>
+          </div>
+          @if (alumno.fechaNacimiento) {
+            <div class="info-row">
+              <span class="info-label">Fecha de nacimiento</span>
+              <span class="info-value">{{ alumno.fechaNacimiento }}</span>
+            </div>
+          }
+          @if (alumno.genero) {
+            <div class="info-row">
+              <span class="info-label">Género</span>
+              <span class="info-value">{{ alumno.genero }}</span>
+            </div>
+          }
+          @if (alumno.direccion) {
+            <div class="info-row">
+              <span class="info-label">Dirección</span>
+              <span class="info-value">{{ alumno.direccion }}</span>
+            </div>
+          }
         </div>
-        <div class="info-row">
-          <span class="info-label">Usuario</span>
-          <span class="info-value">{{ alumno.usuario }}</span>
-        </div>
-      </div>
+
+        <button class="btn-password" (click)="abrirModalPassword()">Cambiar contraseña</button>
+      }
     </div>
   } @else {
     <p class="no-data">No se encontraron datos del perfil.</p>
   }
 </div>
+
+<!-- MODAL CAMBIAR CONTRASEÑA -->
+@if (passwordModal) {
+  <div class="modal-overlay" (click)="cerrarModalPassword()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Cambiar contraseña</h2>
+      <div class="form-group">
+        <label>Contraseña actual</label>
+        <input type="password" [(ngModel)]="oldPassword" placeholder="Ingresa tu contraseña actual" />
+      </div>
+      <div class="form-group">
+        <label>Nueva contraseña</label>
+        <input type="password" [(ngModel)]="newPassword" placeholder="Mínimo 6 caracteres" />
+      </div>
+      <div class="form-group">
+        <label>Confirmar nueva contraseña</label>
+        <input type="password" [(ngModel)]="confirmPassword" placeholder="Repite la nueva contraseña" />
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" (click)="cambiarPassword()">Guardar</button>
+        <button class="btn-secondary" (click)="cerrarModalPassword()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+}

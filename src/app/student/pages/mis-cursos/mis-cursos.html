@@ -48,7 +48,7 @@
         </button>
       </ng-container>
     </div>
-    <div class="curso-actions" *ngIf="ins.estado && ins.estado.nombre === 'aprobado'">
+    <div class="curso-actions" *ngIf="ins.estado && ins.estado.nombre?.toLowerCase() === 'aprobado'">
       <ng-container>
         <a [href]="ins.aula.meetLink" target="_blank" class="btn-action meet">
           Meet

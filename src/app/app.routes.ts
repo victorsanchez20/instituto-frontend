@@ -22,6 +22,8 @@ import { InicioAdmin } from './admin/pages/inicio-admin/inicio-admin';
 import { Configuracion } from './admin/pages/configuracion/configuracion';
 import { Perfil } from './student/pages/perfil/perfil';
 import { PerfilAdmin } from './admin/pages/perfil/perfil';
+import { Exito } from './pago/pages/exito/exito';
+import { ErrorPago } from './pago/pages/error/error';
 
 export const routes: Routes = [
     {
@@ -73,6 +75,11 @@ export const routes: Routes = [
             { path: 'perfil', component: Perfil }
         ]
     },
+
+    // 4. RUTAS DE PAGO (sin layout)
+    { path: 'pago/exito', component: Exito },
+    { path: 'pago/error', component: ErrorPago },
+    { path: 'pago/pendiente', component: ErrorPago },
 
     { path: '**', redirectTo: '' }
 ];

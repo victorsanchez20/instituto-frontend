@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { InscripcionService } from '../../../services/inscripcion.service';
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Curso } from '../../../models/curso';
@@ -23,7 +23,8 @@ export class MisCursos implements OnInit {
   hoy = new Date();
 
   constructor(private inscripcionService: InscripcionService,
-              private pagoService: PagoService
+              private pagoService: PagoService,
+              private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +43,7 @@ export class MisCursos implements OnInit {
       .subscribe(data => {
         this.inscripciones = data;
         this.loading = false;
+        this.cdr.detectChanges();
       });
   }
 
@@ -49,6 +51,7 @@ export class MisCursos implements OnInit {
     this.inscripcionService.delete(inscripcionId)
       .subscribe(() => {
         this.cargarMisCursos(); // 🔁 recargar lista real
+        this.cdr.detectChanges();
       });
   }
 
@@ -83,16 +86,17 @@ export class MisCursos implements OnInit {
   }
 
   pagar(ins: any) {
-    const cursoId = ins?.aula?.id_curso?.id;
-    if (!cursoId) {
-      console.error('No se encontró cursoId para el pago.');
+    const inscripcionId = ins?.idInscripcion;
+    if (!inscripcionId) {
+      console.error('No se encontró inscripcionId para el pago.');
       return;
     }
 
-    this.pagoService.crearPago(cursoId)
+    this.pagoService.crearPago(inscripcionId)
       .subscribe({
         next: res => {
           window.location.href = res.url;
+           this.cdr.detectChanges();
         },
         error: err => {
           console.error(err);

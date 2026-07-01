@@ -11,24 +11,34 @@ export class EstudianteService {
 
   private apiUrl = `${environment.api}/api/instituto/alumno`;
   private authUrl = `${environment.api}/api/auth/login`;
-  
+
   constructor(private http: HttpClient) {}
 
-  // Método para el login
   login(user: string, pass: string): Observable<any> {
-    // Enviamos el objeto tal cual lo espera el Map<String, String> de Java
     return this.http.post(this.authUrl, { user, pass });
+  }
+
+  getById(id: number): Observable<Estudiante> {
+    return this.http.get<Estudiante>(`${this.apiUrl}/${id}`);
   }
 
   saveAlumno(estudiante: Estudiante) {
     return this.http.post(this.apiUrl, estudiante);
   }
 
+  updateAlumno(id: number, estudiante: Partial<Estudiante>): Observable<Estudiante> {
+    return this.http.put<Estudiante>(`${this.apiUrl}/${id}`, estudiante);
+  }
+
+  changePassword(id: number, oldPassword: string, newPassword: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}/password`, { oldPassword, newPassword });
+  }
+
   readAlumno() {
     return this.http.get(this.apiUrl);
   }
 
-  totalAlumno(): Observable<number>{
+  totalAlumno(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/total`);
   }
 }

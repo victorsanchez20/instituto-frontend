@@ -7,22 +7,30 @@ export interface PagoResponse {
   url: string;
 }
 
+export interface VerificarResponse {
+  status: string;
+  message: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class PagoService {
 
   private http = inject(HttpClient);
-
   private api = `${environment.api}/api/pagos`;
 
-  crearPago(cursoId: number): Observable<PagoResponse> {
-    const params = new HttpParams().set('cursoId', String(cursoId));
-    return this.http.post<PagoResponse>(
-      `${this.api}/crear`,
-      null,
-      { params }
-    );
+  crearPago(inscripcionId: number): Observable<PagoResponse> {
+    const frontendUrl = window.location.origin;
+    const params = new HttpParams()
+      .set('inscripcionId', String(inscripcionId))
+      .set('frontendUrl', frontendUrl);
+    return this.http.post<PagoResponse>(`${this.api}/crear`, null, { params });
+  }
+
+  verificarPago(paymentId: string): Observable<VerificarResponse> {
+    const params = new HttpParams().set('paymentId', paymentId);
+    return this.http.get<VerificarResponse>(`${this.api}/verificar`, { params });
   }
 
 }
