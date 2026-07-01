@@ -64,56 +64,6 @@
     </div>
   }
 
-  <!-- CURSOS EN CURSO + PROXIMO PASO -->
-  <div class="dashboard-grid">
-    <div class="courses-panel">
-      <h2 class="section-title">Mis Cursos en Curso</h2>
-
-      @if (cursosEnCurso.length > 0) {
-        <div class="courses-grid">
-          <div class="course-card" *ngFor="let c of cursosEnCurso; let i = index">
-            <div class="course-card-header">
-              <span class="course-number">{{ i + 1 }}.</span>
-              <span class="course-icon">{{ c.icono }}</span>
-            </div>
-            <p class="course-title">{{ c.titulo }}</p>
-            <div class="progress-bar">
-              <div class="progress-fill" [style.width.%]="c.progreso"></div>
-            </div>
-            <span class="progress-label">{{ c.progreso }}%</span>
-            <button class="course-btn">{{ c.progreso > 0 ? 'Reanudar Lección' : 'Ir al Curso' }}</button>
-          </div>
-        </div>
-      } @else {
-        <div class="empty-state">
-          <span class="empty-icon">📚</span>
-          <p>Muy pronto vas a poder retomar tus cursos en curso desde aquí.</p>
-        </div>
-      }
-    </div>
-
-    <div class="next-step-panel">
-      <h2 class="section-title">Tu Próximo Paso</h2>
-
-      @if (proximosPasos.length > 0) {
-        <div class="next-step-list">
-          <div class="next-step-item" *ngFor="let p of proximosPasos">
-            <span class="next-step-icon" [ngClass]="p.tipo">{{ p.icono }}</span>
-            <div>
-              <p class="next-step-label">{{ p.titulo }}</p>
-              <p class="next-step-value">{{ p.detalle }}</p>
-            </div>
-          </div>
-        </div>
-      } @else {
-        <div class="empty-state">
-          <span class="empty-icon">🗓️</span>
-          <p>Aquí verás tus próximas entregas y clases en cuanto estén disponibles.</p>
-        </div>
-      }
-    </div>
-  </div>
-
   <!-- ACCESOS RAPIDOS -->
   <h2 class="section-title">Accesos Rápidos</h2>
   <div class="quick-links">
