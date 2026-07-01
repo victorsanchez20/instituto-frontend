@@ -21,6 +21,10 @@ export class ProfesorService {
     return this.http.get<Profesor[]>(this.apiUrl);
   }
 
+  actualizarProfesor(id: number, profesor: Profesor) {
+    return this.http.put(`${this.apiUrl}/${id}`, profesor);
+  }
+
   eliminarProfesor(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
