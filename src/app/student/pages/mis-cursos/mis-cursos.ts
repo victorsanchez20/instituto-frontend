@@ -87,6 +87,8 @@ export class MisCursos implements OnInit {
 
   pagar(ins: any) {
     const inscripcionId = ins?.idInscripcion;
+    console.log('DEBUG pagar - ins:', JSON.stringify(ins), 'idInscripcion:', inscripcionId);
+
     if (!inscripcionId) {
       console.error('No se encontró inscripcionId para el pago.');
       return;
@@ -99,7 +101,23 @@ export class MisCursos implements OnInit {
            this.cdr.detectChanges();
         },
         error: err => {
-          console.error(err);
+          console.error('Error al crear pago:', err);
+        }
+      });
+  }
+
+  pagarDesdeCurso(cursoId: number) {
+    const alumnoStorage = localStorage.getItem('usuarioLogueado');
+    if (!alumnoStorage) return;
+    const alumno = JSON.parse(alumnoStorage);
+
+    this.pagoService.crearPago(null, cursoId, alumno.id)
+      .subscribe({
+        next: res => {
+          window.location.href = res.url;
+        },
+        error: err => {
+          console.error('Error al crear pago:', err);
         }
       });
   }

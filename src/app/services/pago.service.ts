@@ -20,11 +20,17 @@ export class PagoService {
   private http = inject(HttpClient);
   private api = `${environment.api}/api/pagos`;
 
-  crearPago(inscripcionId: number): Observable<PagoResponse> {
+  crearPago(inscripcionId: number | null, cursoId?: number, alumnoId?: number): Observable<PagoResponse> {
     const frontendUrl = window.location.origin;
-    const params = new HttpParams()
-      .set('inscripcionId', String(inscripcionId))
-      .set('frontendUrl', frontendUrl);
+    let params = new HttpParams().set('frontendUrl', frontendUrl);
+    if (inscripcionId != null) {
+      params = params.set('inscripcionId', String(inscripcionId));
+    } else if (cursoId != null) {
+      params = params.set('cursoId', String(cursoId));
+      if (alumnoId != null) {
+        params = params.set('alumnoId', String(alumnoId));
+      }
+    }
     return this.http.post<PagoResponse>(`${this.api}/crear`, null, { params });
   }
 
